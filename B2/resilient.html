@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>單字互動學習單 - resilient</title>
+  <meta name="vocab-word" content="resilient">
+  <meta name="vocab-cefr" content="B2">
+  <meta name="vocab-curriculum" content="高中升學 7000 字">
+  <meta name="vocab-pos" content="adjective">
+  <meta name="vocab-def" content="有復原力的；適應力強的；堅韌不拔的">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .syntax-subj-verb { border-bottom: 2.5px solid #2563eb; }
+    .syntax-prep-phrase { border-bottom: 2px dashed #059669; }
+    .syntax-focus-pattern { border-bottom: 2.5px dotted #d97706; }
+    .perspective { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #ffffff !important; color: #000000 !important; }
+      .shadow-md, .shadow-lg, .shadow-xl { box-shadow: none !important; }
+      .border { border-color: #cbd5e1 !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto space-y-6">
+
+    <!-- 頂部 Header -->
+    <header class="bg-gradient-to-r from-indigo-700 via-blue-600 to-sky-600 text-white rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-3">
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">resilient</h1>
+            <span class="text-lg italic text-blue-200">adj.</span>
+          </div>
+          <p class="mt-2 text-blue-100 text-sm sm:text-base">
+            美音 KK: [rɪˈzɪljənt] / IPA: /rɪˈzɪl.jənt/ · 英音 IPA: /rɪˈzɪl.i.ənt/
+          </p>
+          <div class="mt-3 flex flex-wrap items-center gap-2">
+            <span class="bg-blue-900/60 border border-blue-300/40 text-blue-100 text-xs px-2.5 py-1 rounded-full font-medium">
+              🎓 高中升學 7000 字
+            </span>
+            <span class="bg-emerald-500/80 text-white text-xs px-2.5 py-1 rounded-full font-bold">
+              CEFR B2
+            </span>
+          </div>
+        </div>
+
+        <!-- 功能按鈕 -->
+        <div class="flex flex-wrap items-center gap-2 sm:self-start no-print">
+          <button onclick="speak('resilient', 'en-US')" class="bg-white/20 hover:bg-white/30 text-white text-xs px-3 py-2 rounded-lg font-medium transition backdrop-blur-sm">
+            🔊 美音朗讀
+          </button>
+          <button onclick="speak('resilient', 'en-GB')" class="bg-white/20 hover:bg-white/30 text-white text-xs px-3 py-2 rounded-lg font-medium transition backdrop-blur-sm">
+            🔊 英音朗讀
+          </button>
+          <button onclick="downloadLessonPlan()" class="bg-white text-blue-700 hover:bg-blue-50 text-xs px-3 py-2 rounded-lg font-semibold shadow transition">
+            📥 下載教材 (.html)
+          </button>
+          <button onclick="window.print()" class="bg-slate-900/40 hover:bg-slate-900/60 text-white text-xs px-3 py-2 rounded-lg font-medium transition">
+            🖨️ 列印 A4 學習單
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 模組 1: 單字 3D 翻轉卡 -->
+    <section class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <span>🃏</span> 3D 單字記憶卡 (點擊翻轉查看解析)
+        </h2>
+        <span class="text-xs text-slate-400 no-print">Click to flip</span>
+      </div>
+
+      <div class="perspective h-48 sm:h-44 cursor-pointer" onclick="flipCard()">
+        <div id="flashcard-inner" class="transform-style-3d relative w-full h-full duration-500 transition-transform">
+          <!-- 正面 -->
+          <div class="backface-hidden absolute inset-0 bg-blue-50 border-2 border-blue-200 rounded-xl p-6 flex flex-col justify-center items-center text-center">
+            <span class="text-xs font-semibold text-blue-600 tracking-wider uppercase mb-1">Cambridge English Definition</span>
+            <p class="text-slate-800 text-base sm:text-lg font-medium max-w-xl">
+              "Able to quickly return to a previous good condition after problems, illness, or change."
+            </p>
+            <span class="mt-3 text-xs text-blue-500 underline">👆 點擊查看中文釋義與三態衍生</span>
+          </div>
+          <!-- 反面 -->
+          <div class="rotate-y-180 backface-hidden absolute inset-0 bg-indigo-600 text-white rounded-xl p-5 flex flex-col justify-center items-center text-center">
+            <h3 class="text-xl font-bold">有復原力的；適應力強的；堅韌不拔的</h3>
+            <div class="mt-2 text-xs sm:text-sm text-indigo-100 space-y-1">
+              <p>名詞: <strong>resilience</strong> / <strong>resiliency</strong> · 副詞: <strong>resiliently</strong></p>
+              <p>比較級: <strong>more resilient</strong> · 最高級: <strong>most resilient</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 2: 權威例句 ＋ 彩色底線句構剖析 -->
+    <section class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
+      <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <span>🔍</span> 權威例句與彩色底線句構深度剖析
+      </h2>
+
+      <!-- 圖例說明 -->
+      <div class="bg-slate-100 rounded-lg p-3 text-xs flex flex-wrap gap-4 text-slate-700">
+        <span class="flex items-center gap-1.5">
+          <span class="inline-block w-6 border-b-2 border-blue-600"></span> 藍色實線：核心主詞與動詞
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="inline-block w-6 border-b-2 border-dashed border-emerald-600"></span> 綠色虛線：介系詞片語或時間副詞
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="inline-block w-6 border-b-2 border-dotted border-amber-600"></span> 橘黃點線：核心焦點句型 / 搭配詞
+        </span>
+      </div>
+
+      <!-- 剖析例句 -->
+      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+        <div class="flex items-start justify-between gap-3">
+          <p class="text-base sm:text-lg text-slate-900 leading-relaxed">
+            <span class="syntax-subj-verb">The local economy</span>
+            <span class="syntax-subj-verb">proved to be</span>
+            <span class="syntax-focus-pattern font-bold text-blue-700">resilient to</span>
+            <span class="syntax-prep-phrase">the global financial downturn</span>.
+          </p>
+          <button onclick="speak('The local economy proved to be resilient to the global financial downturn.', 'en-US')" class="no-print shrink-0 bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs px-2.5 py-1.5 rounded-md font-medium transition">
+            🔊 聆聽
+          </button>
+        </div>
+        <p class="text-sm text-slate-600">【中譯】事實證明，當地經濟對全球金融衰退展現了強大的復原與適應能力。</p>
+        <div class="text-xs text-slate-500 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+          <p><strong>• 主幹剖析：</strong> 主詞 <em>The local economy</em> 搭配連綴動詞結構 <em>proved to be</em> + 形容詞補語 <em>resilient</em>。</p>
+          <p><strong>• 焦點搭配：</strong> <strong>resilient to sth</strong> 表「對…有彈性抵抗/快速復原能力」。</p>
+          <p><strong>• 修飾語：</strong> 介系詞片語 <em>to the global financial downturn</em> 作為對象修飾語。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 3: 看圖說故事 (含防破圖與自訂換圖/上傳面板) -->
+    <section class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <span>🖼️</span> 看圖說故事 (Picture Story)
+        </h2>
+        <button onclick="toggleImageSettings()" class="no-print text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-300 font-medium transition">
+          ⚙️ 自訂圖片 / 換圖
+        </button>
+      </div>
+
+      <!-- 自訂圖片面板 -->
+      <div id="image-edit-panel" class="hidden no-print bg-slate-50 border border-slate-300 p-4 rounded-xl space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">貼上線上圖片 URL：</label>
+          <div class="flex gap-2">
+            <input type="text" id="custom-image-url" placeholder="https://example.com/image.jpg" class="flex-1 px-3 py-1.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button onclick="applyNewImageUrl()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg font-medium">套用網址</button>
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">或從電腦上傳本機圖檔：</label>
+          <input type="file" accept="image/*" onchange="loadLocalImage(event)" class="text-slate-600 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:bg-blue-100 file:text-blue-800 hover:file:bg-blue-200">
+        </div>
+      </div>
+
+      <!-- 圖片容器 -->
+      <div class="relative w-full overflow-hidden rounded-xl bg-slate-100 border border-slate-200">
+        <img id="main-vocab-image" src="https://static.vecteezy.com/system/resources/previews/071/668/764/non_2x/green-sprout-cracked-concrete-resilience-growth-survival-free-photo.jpeg" alt="A green sprout emerging from concrete crack" class="w-full max-h-80 object-cover" onerror="handleImageError(this)">
+        <div id="image-fallback-box" class="hidden p-8 text-center bg-slate-100 text-slate-500">
+          <p class="text-3xl mb-1">🌱</p>
+          <p class="font-medium text-sm">圖片暫時無法載入，可點擊上方「⚙️ 自訂圖片」重新設定圖源。</p>
+        </div>
+      </div>
+
+      <!-- 看圖短文 -->
+      <div class="space-y-2.5 text-sm">
+        <div class="p-2.5 rounded-lg hover:bg-slate-50 transition flex items-start justify-between gap-3 border-l-4 border-emerald-500 bg-emerald-50/40">
+          <div>
+            <p class="font-medium text-slate-900">1. A tiny green sprout pushes its way through a dry, cracked slab of concrete.</p>
+            <p class="text-xs text-slate-600 mt-0.5">一株嬌小的綠芽頂破乾枯龜裂的混凝土石板，奮力向上冒出。</p>
+          </div>
+          <button onclick="speak('A tiny green sprout pushes its way through a dry, cracked slab of concrete.', 'en-US')" class="no-print text-xs text-blue-600 hover:underline shrink-0">🔊</button>
+        </div>
+
+        <div class="p-2.5 rounded-lg hover:bg-slate-50 transition flex items-start justify-between gap-3 border-l-4 border-emerald-500 bg-emerald-50/40">
+          <div>
+            <p class="font-medium text-slate-900">2. Without rich soil or constant rain, it relies on sheer endurance to survive.</p>
+            <p class="text-xs text-slate-600 mt-0.5">在沒有肥沃土壤和充足雨水的情況下，它憑藉頑強的毅力生存。</p>
+          </div>
+          <button onclick="speak('Without rich soil or constant rain, it relies on sheer endurance to survive.', 'en-US')" class="no-print text-xs text-blue-600 hover:underline shrink-0">🔊</button>
+        </div>
+
+        <div class="p-2.5 rounded-lg hover:bg-slate-50 transition flex items-start justify-between gap-3 border-l-4 border-emerald-500 bg-emerald-50/40">
+          <div>
+            <p class="font-medium text-slate-900">3. The delicate plant stands as a living symbol of a resilient spirit in harsh conditions.</p>
+            <p class="text-xs text-slate-600 mt-0.5">這株柔弱的植物在艱困環境中，成為了堅韌不拔精神的鮮活象徵。</p>
+          </div>
+          <button onclick="speak('The delicate plant stands as a living symbol of a resilient spirit in harsh conditions.', 'en-US')" class="no-print text-xs text-blue-600 hover:underline shrink-0">🔊</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 4: 常見誤區提醒 (Common Mistakes) -->
+    <section class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-xl shadow-sm space-y-2">
+      <h3 class="text-amber-900 font-bold text-sm flex items-center gap-1.5">
+        <span>⚠️</span> 教學焦點：常見誤區與易混淆辨析
+      </h3>
+      <ul class="text-xs text-amber-800 space-y-1.5 list-disc list-inside">
+        <li><strong>介系詞搭配：</strong> 表示「對壓力或逆境具有韌性」時，請習慣搭配 <strong>resilient to</strong>，避免混用 against。</li>
+        <li><strong>字尾拼寫：</strong> 名詞為 <strong>resilience</strong>（-ence 結尾），不是 -ance。</li>
+        <li><strong>語意差異：</strong> <strong>resilient</strong> 強調「受打擊後能復原、彈回良好狀態」；不同於 <em>stubborn</em>（負面固執）或 <em>rigid</em>（僵硬死板）。</li>
+      </ul>
+    </section>
+
+    <!-- 模組 5: 生活情境短對話 (Mini Dialogue) -->
+    <section class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-3">
+      <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <span>☕</span> 生活情境短對話 (Mini Dialogue)
+      </h2>
+      <div class="space-y-3 text-sm">
+        <div class="bg-slate-50 p-3 rounded-xl flex items-start justify-between gap-3">
+          <div>
+            <span class="font-bold text-blue-700">Alex:</span>
+            <span class="text-slate-800">"I heard Mark lost his main project sponsor yesterday. Is he doing okay?"</span>
+            <p class="text-xs text-slate-500 mt-0.5">我聽說 Mark 昨天失去了主要專案贊助商，他還好嗎？</p>
+          </div>
+          <button onclick="speak('I heard Mark lost his main project sponsor yesterday. Is he doing okay?', 'en-US')" class="no-print text-xs text-blue-600 hover:underline shrink-0">🔊</button>
+        </div>
+        <div class="bg-slate-50 p-3 rounded-xl flex items-start justify-between gap-3">
+          <div>
+            <span class="font-bold text-indigo-700">Brenda:</span>
+            <span class="text-slate-800">"He was bummed for an hour, but he's already pitching new investors. He's tough as nails."</span>
+            <p class="text-xs text-slate-500 mt-0.5">他鬱悶了一個小時，但現在已經在向新投資人提案了。他簡直意志如鐵。</p>
+          </div>
+          <button onclick="speak('He was bummed for an hour, but he already pitching new investors. He is tough as nails.', 'en-US')" class="no-print text-xs text-blue-600 hover:underline shrink-0">🔊</button>
+        </div>
+        <div class="bg-slate-50 p-3 rounded-xl flex items-start justify-between gap-3">
+          <div>
+            <span class="font-bold text-blue-700">Alex:</span>
+            <span class="text-slate-800">"Yeah, he always bounces back fast. That's why his team is so resilient."</span>
+            <p class="text-xs text-slate-500 mt-0.5">是啊，他總是能迅速振作。這也是為什麼他的團隊如此有韌性。</p>
+          </div>
+          <button onclick="speak('Yeah, he always bounces back fast. That is why his team is so resilient.', 'en-US')" class="no-print text-xs text-blue-600 hover:underline shrink-0">🔊</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 6: 隨堂即時檢測 (Quick Quiz) -->
+    <section class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
+      <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <span>📝</span> 隨堂即時檢測 (Quick Quiz)
+      </h2>
+      <p class="text-sm text-slate-700">
+        Q: Which of the following sentences uses the word <strong>"resilient"</strong> correctly?
+      </p>
+
+      <div class="space-y-2 text-sm" id="quiz-options">
+        <button onclick="checkQuiz(false, this)" class="w-full text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition">
+          A. He was so resilient that he refused to listen to anyone else's advice.
+        </button>
+        <button onclick="checkQuiz(true, this)" class="w-full text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition">
+          B. The community remained resilient and rebuilt their homes after the severe flood.
+        </button>
+        <button onclick="checkQuiz(false, this)" class="w-full text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition">
+          C. She felt resilient and slept for fourteen hours because of exhaustion.
+        </button>
+      </div>
+
+      <div id="quiz-feedback" class="hidden p-3 rounded-xl text-xs font-medium"></div>
+    </section>
+
+  </div>
+
+  <script>
+    function speak(text, lang) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang || 'en-US';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('您的瀏覽器不支援語音合成朗讀功能。');
+      }
+    }
+
+    let isFlipped = false;
+    function flipCard() {
+      const inner = document.getElementById('flashcard-inner');
+      isFlipped = !isFlipped;
+      if (isFlipped) {
+        inner.classList.add('rotate-y-180');
+      } else {
+        inner.classList.remove('rotate-y-180');
+      }
+    }
+
+    function checkQuiz(isCorrect, btn) {
+      const feedback = document.getElementById('quiz-feedback');
+      const buttons = document.querySelectorAll('#quiz-options button');
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-slate-50');
+      });
+
+      if (isCorrect) {
+        btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'font-semibold');
+        feedback.className = 'p-3 rounded-xl text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200';
+        feedback.innerHTML = '🎉 <strong>正確！</strong> 社區在遭逢大洪水後依然展現堅韌韌性並重建家園，完美切合 resilient 經受打擊後恢復原貌的核心語義。';
+      } else {
+        btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900');
+        feedback.className = 'p-3 rounded-xl text-xs font-medium bg-rose-50 text-rose-800 border border-rose-200';
+        feedback.innerHTML = '❌ <strong>再想想看：</strong> (A) 不肯聽建議是 <em>stubborn</em>；(C) 疲憊睡覺並非形容復原韌性。正確答案為 (B)。';
+      }
+      feedback.classList.remove('hidden');
+    }
+
+    function toggleImageSettings() {
+      const panel = document.getElementById('image-edit-panel');
+      panel.classList.toggle('hidden');
+    }
+
+    function handleImageError(img) {
+      img.classList.add('hidden');
+      document.getElementById('image-fallback-box').classList.remove('hidden');
+    }
+
+    function applyNewImageUrl() {
+      const url = document.getElementById('custom-image-url').value.trim();
+      if (!url) return;
+      const img = document.getElementById('main-vocab-image');
+      const fallback = document.getElementById('image-fallback-box');
+      fallback.classList.add('hidden');
+      img.classList.remove('hidden');
+      img.src = url;
+    }
+
+    function loadLocalImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('main-vocab-image');
+        const fallback = document.getElementById('image-fallback-box');
+        fallback.classList.add('hidden');
+        img.classList.remove('hidden');
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function downloadLessonPlan() {
+      const docClone = document.documentElement.cloneNode(true);
+      const scripts = docClone.querySelectorAll('script');
+      const blob = new Blob(['<!DOCTYPE html>\n' + docClone.outerHTML], { type: 'text/html;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'resilient.html';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
