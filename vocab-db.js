@@ -1,8 +1,17 @@
 /**
  * vocab-db.js - 單字庫實體資料庫
- * 自動同步產生時間：2026/10/3 下午11:46:12
+ * 自動同步產生時間：2026/10/4 上午12:10:35
  */
 window.VOCAB_DB = [
+  {
+    "word": "speaker",
+    "cefr": "A2",
+    "curriculum": "國小 1200 / 國中會考核心字",
+    "pos": "noun",
+    "defZh": "演講者、發言者；音響喇叭、揚聲器；母語使用者",
+    "path": "A2/speaker.html",
+    "addedAt": "2026-10-03"
+  },
   {
     "word": "axe",
     "cefr": "B1",

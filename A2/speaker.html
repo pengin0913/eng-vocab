@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英語單字互動教案 - speaker</title>
+
+  <!-- 專屬單字庫中樞面板中繼標籤 (提供 index.html 100% 精準自動探測與分類) -->
+  <meta name="vocab-word" content="speaker">
+  <meta name="vocab-cefr" content="A2">
+  <meta name="vocab-curriculum" content="國小 1200 / 國中會考核心字">
+  <meta name="vocab-pos" content="noun">
+  <meta name="vocab-def" content="演講者、發言者；音響喇叭、揚聲器；母語使用者">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 彩色底線句構剖析樣式 */
+    .syntax-subj-verb {
+      border-bottom: 2.5px solid #2563eb;
+      padding-bottom: 1px;
+    }
+    .syntax-prep-phrase {
+      border-bottom: 2px dashed #059669;
+      padding-bottom: 1px;
+    }
+    .syntax-focus-pattern {
+      border-bottom: 2.5px dotted #d97706;
+      padding-bottom: 1px;
+      font-weight: 600;
+    }
+    
+    /* 3D 翻轉卡片樣式 */
+    .perspective {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* 列印最佳化 (A4 學習單) */
+    @media print {
+      body {
+        background-color: white !important;
+        color: black !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      .shadow-md, .shadow-lg, .shadow-xl {
+        box-shadow: none !important;
+      }
+      .border {
+        border-color: #cbd5e1 !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-16">
+
+  <!-- 頂部 Header -->
+  <header class="bg-gradient-to-r from-indigo-700 via-blue-600 to-sky-600 text-white py-8 px-6 shadow-md">
+    <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <div class="flex items-center gap-3 flex-wrap">
+          <h1 class="text-4xl font-extrabold tracking-tight">speaker</h1>
+          <span class="text-sm font-semibold bg-white/20 px-2.5 py-1 rounded-full uppercase tracking-wider">noun</span>
+          <span class="text-xs font-bold bg-amber-400 text-amber-950 px-2.5 py-1 rounded-full">CEFR A2</span>
+          <span class="text-xs font-bold bg-emerald-400 text-emerald-950 px-2.5 py-1 rounded-full">國小 1200 / 國中會考</span>
+        </div>
+        <div class="mt-3 flex items-center gap-4 text-sm text-blue-100 flex-wrap">
+          <span>🇺🇸 KK: [ˈspikɚ] / IPA: /ˈspiː.kɚ/</span>
+          <span>🇬🇧 IPA: /ˈspiː.kə(r)/</span>
+        </div>
+        <div class="mt-3 flex items-center gap-2 no-print">
+          <button onclick="speak('speaker', 'en-US')" class="bg-white/10 hover:bg-white/20 text-xs px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5">
+            🔊 美音朗讀
+          </button>
+          <button onclick="speak('speaker', 'en-GB')" class="bg-white/10 hover:bg-white/20 text-xs px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5">
+            🔊 英音朗讀
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-row md:flex-col gap-2 no-print">
+        <button onclick="downloadLessonPlan()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm px-4 py-2 rounded-lg shadow transition flex items-center gap-2">
+          📥 下載完整教案 (.html)
+        </button>
+        <button onclick="window.print()" class="bg-white/20 hover:bg-white/30 text-white font-medium text-sm px-4 py-2 rounded-lg transition flex items-center gap-2">
+          🖨️ 列印 A4 學習單
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容容器 -->
+  <main class="max-w-4xl mx-auto px-4 mt-8 space-y-8">
+
+    <!-- 模組 1: 單字翻轉記憶卡 (Flashcard) -->
+    <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <span>🎴</span> 單字翻轉記憶卡 (點擊卡片翻面)
+        </h2>
+        <span class="text-xs text-slate-500 no-print">Interactive Flashcard</span>
+      </div>
+      <div class="perspective w-full h-48 cursor-pointer select-none" onclick="flipCard()">
+        <div id="flashcard-inner" class="relative w-full h-full transform-style-3d transition-transform duration-500">
+          <!-- 正面 -->
+          <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-indigo-200 rounded-xl p-6 flex flex-col justify-center items-center text-center backface-hidden">
+            <span class="text-xs uppercase font-bold text-indigo-500 tracking-widest mb-1">English Definition</span>
+            <p class="text-base text-slate-700 font-medium">"A person who gives a speech, a device through which sound is heard, or a person who speaks a language."</p>
+            <p class="text-xs text-slate-400 mt-3 flex items-center gap-1">🔄 點擊翻轉查看中文釋義與單字家族</p>
+          </div>
+          <!-- 反面 -->
+          <div class="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-6 flex flex-col justify-center items-center text-center backface-hidden rotate-y-180">
+            <span class="text-xs uppercase font-bold text-amber-600 tracking-widest mb-1">核心中文與家族字</span>
+            <p class="text-xl font-bold text-slate-800">演講者；音響喇叭；母語使用者 (n.)</p>
+            <div class="flex gap-2 mt-2 text-xs text-slate-600 flex-wrap justify-center">
+              <span class="bg-white/80 px-2 py-0.5 rounded border border-amber-200">複數形: speakers</span>
+              <span class="bg-white/80 px-2 py-0.5 rounded border border-amber-200">動詞: speak</span>
+              <span class="bg-white/80 px-2 py-0.5 rounded border border-amber-200">名詞: speech</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-2">🔄 點擊翻回正面</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 2: 權威例句 ＋ 彩色底線句構剖析 -->
+    <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <span>📐</span> 句構深度剖析 (Syntax Analysis)
+        </h2>
+      </div>
+
+      <!-- 圖例說明 (Syntax Legend) -->
+      <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 mb-5 flex flex-wrap gap-4 text-xs text-slate-600">
+        <div class="flex items-center gap-1.5">
+          <span class="inline-block w-4 h-1 bg-blue-600"></span>
+          <span>藍色實線：核心主詞與動詞</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="inline-block w-4 border-b-2 border-dashed border-emerald-600"></span>
+          <span>綠色虛線：介系詞片語 / 時間子句</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="inline-block w-4 border-b-2 border-dotted border-amber-600"></span>
+          <span>橘黃點線：目標核心字 / 焦點搭配詞</span>
+        </div>
+      </div>
+
+      <!-- 例句展示區 -->
+      <div class="space-y-4">
+        <div class="p-4 bg-slate-50/70 rounded-xl border border-slate-100">
+          <div class="text-lg leading-loose text-slate-800">
+            <span class="syntax-subj-verb">The <span class="syntax-focus-pattern">guest speaker</span> inspired</span> hundreds of energetic teachers
+            <span class="syntax-prep-phrase">with her innovative teaching strategies</span>.
+            <button onclick="speak('The guest speaker inspired hundreds of energetic teachers with her innovative teaching strategies.', 'en-US')" class="ml-2 text-sm text-blue-600 hover:text-blue-800 no-print" title="朗讀美音">🔊</button>
+          </div>
+          <p class="text-sm text-slate-500 mt-2">客座演講者以其創新的教學策略，啟發了數百位充滿熱忱的老師。</p>
+          <div class="mt-3 text-xs text-slate-600 border-t border-slate-200 pt-2 space-y-1">
+            <p>• <strong>核心主幹</strong>：主詞 <code class="bg-blue-50 text-blue-700 px-1 rounded">The guest speaker</code> ＋ 動詞 <code class="bg-blue-50 text-blue-700 px-1 rounded">inspired</code> ＋ 受詞 <code class="bg-slate-100 px-1 rounded">hundreds of energetic teachers</code>。</p>
+            <p>• <strong>介系詞修飾</strong>：介系詞片語 <code class="bg-emerald-50 text-emerald-700 px-1 rounded">with her innovative teaching strategies</code> 表達「藉由／以…方式」。</p>
+            <p>• <strong>常用搭配</strong>：<code class="bg-amber-50 text-amber-700 px-1 rounded font-semibold">guest speaker</code> 代表「特邀主講人／客座演說家」。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 3: 看圖說故事 (含防破圖與自訂換圖/上傳面板) -->
+    <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <span>🖼️</span> 看圖說故事 (Picture Story)
+        </h2>
+        <button onclick="toggleImageSettings()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-300 transition no-print flex items-center gap-1">
+          ⚙ 自訂圖片 / 換圖
+        </button>
+      </div>
+
+      <!-- 自訂圖片面板 (預設隱藏) -->
+      <div id="image-edit-panel" class="hidden mb-4 p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-3 no-print">
+        <div class="font-bold text-slate-700">自訂教材圖片來源</div>
+        <div class="flex gap-2">
+          <input type="text" id="custom-image-url" placeholder="貼上自訂線上圖片 URL (https://...)" class="flex-1 px-3 py-1.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          <button onclick="applyNewImageUrl()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition font-medium">套用網址</button>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-slate-500">或上傳本機圖檔：</span>
+          <input type="file" id="local-image-input" accept="image/*" onchange="loadLocalImage(event)" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+        </div>
+      </div>
+
+      <!-- 圖片容器與防破圖備援 -->
+      <div class="relative w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-200 mb-5">
+        <img id="story-image" src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80" alt="A charismatic speaker delivering a speech at a podium" class="w-full h-72 object-cover object-center transition" onerror="handleImageError(this)">
+        
+        <!-- 備用提示盒 (當圖片載入失敗時顯示) -->
+        <div id="image-fallback-box" class="hidden w-full h-72 bg-slate-100 flex-col items-center justify-center text-slate-400 p-6 text-center">
+          <span class="text-3xl mb-2">🎤</span>
+          <p class="text-sm font-medium text-slate-600">圖片暫時無法載入</p>
+          <p class="text-xs mt-1 text-slate-400">請點擊右上角「⚙️ 自訂圖片 / 換圖」按鈕輸入新圖片連結或上傳圖檔</p>
+        </div>
+      </div>
+
+      <!-- 短文與語音 -->
+      <div class="space-y-3">
+        <div class="p-3 bg-slate-50 rounded-lg flex items-start justify-between">
+          <div>
+            <p class="text-sm font-medium text-slate-800">1. A confident <strong>speaker</strong> steps up to the podium, smiling warmly at the enthusiastic crowd.</p>
+            <p class="text-xs text-slate-500 mt-1">一位充滿自信的演講者走上講台，帶著溫暖的微笑面對熱情的聽眾。</p>
+          </div>
+          <button onclick="speak('A confident speaker steps up to the podium, smiling warmly at the enthusiastic crowd.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-lg flex items-start justify-between">
+          <div>
+            <p class="text-sm font-medium text-slate-800">2. He shares inspiring educational stories that keep every listener thoroughly engaged.</p>
+            <p class="text-xs text-slate-500 mt-1">他分享了許多引人入勝的教育故事，讓每位聽眾都全神貫注。</p>
+          </div>
+          <button onclick="speak('He shares inspiring educational stories that keep every listener thoroughly engaged.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-lg flex items-start justify-between">
+          <div>
+            <p class="text-sm font-medium text-slate-800">3. Through powerful audio <strong>speakers</strong>, his message echoes distinctly across the auditorium.</p>
+            <p class="text-xs text-slate-500 mt-1">透過音效強勁的音響喇叭，他傳達的信息清晰地迴盪在大禮堂之中。</p>
+          </div>
+          <button onclick="speak('Through powerful audio speakers, his message echoes distinctly across the auditorium.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 4: 教學焦點：常見誤區提醒 (Common Mistakes) -->
+    <section class="bg-amber-50 rounded-2xl p-6 border-l-4 border-amber-500 shadow-sm">
+      <h2 class="text-lg font-bold text-amber-900 flex items-center gap-2 mb-3">
+        <span>💡</span> 教師備課提醒：常見混淆與學習陷阱
+      </h2>
+      <div class="text-sm text-amber-800 space-y-2">
+        <p>• <strong>音響喇叭 ≠ horn</strong>：家裡播放音樂的喇叭只能用 <strong>speaker</strong>。英文中的 <em>horn</em> 是指「汽車喇叭」或樂器「法國號」，說 <em>"Listen to music with a horn"</em> 會造成嚴重誤解！</p>
+        <p>• <strong>大寫 Speaker 指議長</strong>：例如 <em>the Speaker of the House</em> 為眾議院議長。此時通常為專有名詞且首字母大寫。</p>
+        <p>• <strong>發音細節辨析</strong>：字母組合 <em>ea</em> 發長母音 <strong>/iː/</strong>，尾音 <strong>-er</strong> 在美音中帶有捲舌音 <strong>/ɚ/</strong>，避免唸成短母音。</p>
+      </div>
+    </section>
+
+    <!-- 模組 5: 生活情境短對話 (Mini Dialogue) -->
+    <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+      <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2 mb-4">
+        <span>☕</span> 生活情境短對話 (Mini Dialogue)
+      </h2>
+      <div class="space-y-3">
+        <div class="bg-blue-50/60 p-3.5 rounded-xl border border-blue-100 flex justify-between items-start">
+          <div>
+            <span class="text-xs font-bold text-blue-700">Leo</span>
+            <p class="text-sm text-slate-800 mt-0.5">"Could you lower the volume of the Bluetooth <strong>speaker</strong>? I'm grading mathematics tests."</p>
+            <p class="text-xs text-slate-500 mt-1">（你可以把藍牙喇叭的音量調小一點嗎？我正在批改數學測驗卷。）</p>
+          </div>
+          <button onclick="speak('Could you lower the volume of the Bluetooth speaker? I am grading mathematics tests.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+        </div>
+
+        <div class="bg-emerald-50/60 p-3.5 rounded-xl border border-emerald-100 flex justify-between items-start">
+          <div>
+            <span class="text-xs font-bold text-emerald-700">Mia</span>
+            <p class="text-sm text-slate-800 mt-0.5">"Sure thing! I was just listening to a podcast hosted by a native English <strong>speaker</strong>."</p>
+            <p class="text-xs text-slate-500 mt-1">（沒問題！我剛剛在聽一位英語母語者主持的 Podcast。）</p>
+          </div>
+          <button onclick="speak('Sure thing! I was just listening to a podcast hosted by a native English speaker.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 6: 隨堂即時檢測 (Quick Quiz) -->
+    <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+      <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2 mb-3">
+        <span>📝</span> 課堂隨堂檢測 (Quick Quiz)
+      </h2>
+      <p class="text-sm text-slate-700 mb-4">
+        <strong>Q:</strong> "We purchased a portable Bluetooth ________ so we could enjoy lively music during the picnic."
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="quiz-options">
+        <button onclick="checkQuiz(false, this)" class="quiz-btn text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm transition">
+          A) horn
+        </button>
+        <button onclick="checkQuiz(true, this)" class="quiz-btn text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm transition">
+          B) speaker
+        </button>
+        <button onclick="checkQuiz(false, this)" class="quiz-btn text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm transition">
+          C) speech
+        </button>
+        <button onclick="checkQuiz(false, this)" class="quiz-btn text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm transition">
+          D) spoken
+        </button>
+      </div>
+      <div id="quiz-feedback" class="mt-4 hidden p-3 rounded-xl text-xs"></div>
+    </section>
+
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="mt-12 text-center text-xs text-slate-400 no-print">
+    <p>English Vocabulary Lesson Plan • speaker • Generated for Classroom Instruction</p>
+  </footer>
+
+  <!-- 互動 JavaScript 核心腳本 -->
+  <script>
+    // 1. Web Speech API 朗讀功能
+    function speak(text, lang = 'en-US') {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('您的瀏覽器不支援語音合成朗讀功能。');
+      }
+    }
+
+    // 2. 翻轉單字卡
+    let isFlipped = false;
+    function flipCard() {
+      const card = document.getElementById('flashcard-inner');
+      isFlipped = !isFlipped;
+      if (isFlipped) {
+        card.classList.add('rotate-y-180');
+      } else {
+        card.classList.remove('rotate-y-180');
+      }
+    }
+
+    // 3. 隨堂測驗判定
+    function checkQuiz(isCorrect, btn) {
+      const allBtns = document.querySelectorAll('.quiz-btn');
+      allBtns.forEach(b => {
+        b.disabled = true;
+        b.classList.remove('hover:bg-slate-50');
+      });
+
+      const feedback = document.getElementById('quiz-feedback');
+      feedback.classList.remove('hidden');
+
+      if (isCorrect) {
+        btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'font-bold');
+        feedback.className = 'mt-4 p-3 rounded-xl text-xs bg-emerald-50 border border-emerald-200 text-emerald-800';
+        feedback.innerHTML = '<strong>🎉 答對了！</strong> 「藍牙音響喇叭」正確英文為 <strong>Bluetooth speaker</strong>。選項 A 的 horn 指汽車喇叭；選項 C 的 speech 指「演說講稿」；選項 D 的 spoken 為形容詞「口語的」。';
+      } else {
+        btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900');
+        feedback.className = 'mt-4 p-3 rounded-xl text-xs bg-rose-50 border border-rose-200 text-rose-800';
+        feedback.innerHTML = '<strong>❌ 答錯囉！</strong> 正確答案為 <strong>B</strong>。放音樂的音響喇叭只能使用 <strong>speaker</strong>，不能用 horn。';
+      }
+    }
+
+    // 4. 圖片設置面板切換
+    function toggleImageSettings() {
+      const panel = document.getElementById('image-edit-panel');
+      panel.classList.toggle('hidden');
+    }
+
+    // 5. 防破圖備援處理
+    function handleImageError(img) {
+      img.classList.add('hidden');
+      const fallbackBox = document.getElementById('image-fallback-box');
+      if (fallbackBox) {
+        fallbackBox.classList.remove('hidden');
+        fallbackBox.classList.add('flex');
+      }
+    }
+
+    // 6. 套用線上新圖片網址
+    function applyNewImageUrl() {
+      const input = document.getElementById('custom-image-url');
+      const url = input.value.trim();
+      if (url) {
+        const img = document.getElementById('story-image');
+        const fallbackBox = document.getElementById('image-fallback-box');
+        img.src = url;
+        img.classList.remove('hidden');
+        if (fallbackBox) {
+          fallbackBox.classList.add('hidden');
+          fallbackBox.classList.remove('flex');
+        }
+      }
+    }
+
+    // 7. 本機上傳圖檔轉 Base64 寫入 DOM
+    function loadLocalImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById('story-image');
+          const fallbackBox = document.getElementById('image-fallback-box');
+          img.src = e.target.result;
+          img.classList.remove('hidden');
+          if (fallbackBox) {
+            fallbackBox.classList.add('hidden');
+            fallbackBox.classList.remove('flex');
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // 8. 下載完整 HTML 教案 (確保儲存時保留 Meta 標籤)
+    function downloadLessonPlan() {
+      const docClone = document.documentElement.cloneNode(true);
+      
+      const panel = docClone.querySelector('#image-edit-panel');
+      if (panel) panel.classList.add('hidden');
+
+      const htmlContent = "<!DOCTYPE html>\n" + docClone.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'speaker.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
