@@ -1,8 +1,17 @@
 /**
  * vocab-db.js - 單字庫實體資料庫
- * 自動同步產生時間：2026/10/3 下午10:50:12
+ * 自動同步產生時間：2026/10/3 下午11:46:12
  */
 window.VOCAB_DB = [
+  {
+    "word": "axe",
+    "cefr": "B1",
+    "curriculum": "國小進階 / 國中會考核心字",
+    "pos": "noun / verb",
+    "defZh": "斧頭；大幅削減、撤銷",
+    "path": "B1/axe.html",
+    "addedAt": "2026-10-03"
+  },
   {
     "word": "nab",
     "cefr": "B2",
