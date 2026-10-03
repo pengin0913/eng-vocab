@@ -1,8 +1,17 @@
 /**
  * vocab-db.js - 單字庫實體資料庫
- * 自動同步產生時間：2026/10/4 上午12:23:59
+ * 自動同步產生時間：2026/10/4 上午12:41:50
  */
 window.VOCAB_DB = [
+  {
+    "word": "breakfast",
+    "cefr": "A1",
+    "curriculum": "國小必學 1200 字",
+    "pos": "noun",
+    "defZh": "早餐；早晨的第一餐",
+    "path": "A1/breakfast.html",
+    "addedAt": "2026-10-03"
+  },
   {
     "word": "resilient",
     "cefr": "B2",

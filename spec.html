@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>講義預覽</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <style>
+    body { font-family: "Microsoft JhengHei", Arial, sans-serif; line-height: 1.8; padding: 40px; max-width: 800px; margin: auto; }
+    table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background: #f5f5f5; }
+  </style>
+</head>
+<body><blockquote>
+<p>Prompt: 請印出 eng-vocab skill的儲存庫定義規範。</p>
+</blockquote>
+<hr>
+<h2>name: eng-vocab
+description: 專門查詢英文單字與片語的權威解析技能。整合劍橋詞典釋義、台美雙軌音標(KK+IPA)、全句子美式語音朗讀、動態三態與詞形變化表、教育部課綱與CEFR分級標籤、道地口語轉換短對話、看圖說故事(3~5句英文短文)以及以 nab.html 為「100% 絕對標準制式化樣板」的「離線互動教材打包下載區」(包含在  中精準注入 <meta name="vocab-word">、<meta name="vocab-cefr">、<meta name="vocab-curriculum">、<meta name="vocab-pos"> 與 <meta name="vocab-def"> 供子目錄 index.html 探測對接、句構剖析彩色底線、3D翻轉單字卡、隨堂測驗、語音朗讀、防破圖備援機制、自訂圖片網址/上傳本機圖檔面板與 A4 列印優化)。當使用者提及「查單字」、「查英文字彙」或以 @eng-vocab 呼叫時觸發。</h2>
+<h1>English Vocabulary Expert (劍橋權威單字解析與視覺口語轉化)</h1>
+<p>專門為英語學習、教學備課及英文檢定設計，提供權威、生活化且兼具教學實用性的全方位單字解析。</p>
+<h2>適用情境 (When to Use)</h2>
+<ul>
+<li>使用者要求查詢特定英文單字或片語的詳細釋義、用法、發音或例句。</li>
+<li>教師需要製作單字學習單、備課教材或口語情境對話。</li>
+<li>使用者輸入 <code>@eng-vocab [英文單字/片語]</code> 時。</li>
+</ul>
+<hr>
+<h2>核心資料依據與規範</h2>
+<ol>
+<li><strong>劍橋詞典權威性</strong>：英英釋義、中文對譯與國際音標 (IPA) 嚴謹參照劍橋詞典 (Cambridge Dictionary) 規範。</li>
+<li><strong>學習階層雙標籤</strong>：同時提供教育部 108 課綱階段標籤（國小常用字、國中會考核心字、高中升學字等）與 CEFR 等級（A1-C2）。</li>
+<li><strong>全語音互動規範</strong>：所有英文句子（例句、對話、看圖說故事）均提供點擊發音或朗讀提示。</li>
+<li><strong>圖像輔助與圖片防護</strong>：透過真實圖片輔助，提供貼合該單字核心語境的情境照片，輔以 3~5 句看圖說故事。同時在 HTML 打包中內建 onerror 防破圖備用提示與自訂換圖/上傳面板。</li>
+<li><strong>教材匯出 (100% 嚴格以 nab.html 為唯一基準母板)</strong>：第 9 大模組必須完整輸出單一獨立 HTML 檔案原始碼。<strong>不得擅自變更 HTML 骨架、DOM 標籤層級、Tailwind Class 佈局或自創樣式</strong>。</li>
+</ol>
+<hr>
+<h2>標準輸出結構 (Output Structure)</h2>
+<p>每次查詢單字時，依序輸出以下 9 大模組：</p>
+<h3>1. 核心字彙與學習階段標籤</h3>
+<ul>
+<li>大字呈現目標單字，標示基本詞性（如 <em>verb</em>, <em>noun</em>, <em>adjective</em>）。</li>
+<li>🎓 <strong>課綱階段</strong>：標註【國小必學 1200 字】/【國中會考核心字】/【高中升學 7000 字】/【進階英檢】。</li>
+<li>🌐 <strong>CEFR 等級</strong>：A1、A2、B1、B2、C1、C2。</li>
+</ul>
+<h3>2. 雙軌音標與單字發音區</h3>
+<ul>
+<li>🇺🇸 <strong>美式發音</strong>：KK 音標 ＋ 國際音標 (IPA)，附 <code>[ 🔊 點擊聆聽美式發音 ]</code>。</li>
+<li>🇬🇧 <strong>英式發音</strong>：國際音標 (IPA)，附 <code>[ 🔊 點擊聆聽英式發音 ]</code>。</li>
+</ul>
+<h3>3. 動態三態與詞形變化表 (Inflections)</h3>
+<ul>
+<li>動詞：原形 (Base)、過去式 (Past)、過去分詞 (p.p.)、現在分詞 (-ing)、第三人稱單數 (-s/-es)。</li>
+<li>名詞/形容詞：複數形或比較級/最高級。</li>
+<li>🌿 <strong>詞類衍生家族</strong>：衍生名詞、形容詞、副詞等。</li>
+</ul>
+<h3>4. 劍橋詞典核心釋義</h3>
+<ul>
+<li>英英釋義 (Cambridge English Definition)。</li>
+<li>繁體中文釋義。</li>
+<li>常用搭配詞 (Collocations)。</li>
+</ul>
+<h3>5. 權威情境例句 (附語音)</h3>
+<ul>
+<li>提供 1～2 句典範例句，目標字加粗。</li>
+<li>每句均附繁體中文翻譯與 <code>[ 🔊 聆聽例句美音 ]</code>。</li>
+</ul>
+<h3>6. 🗣️ 口語說法轉換與日常對話 (附語音)</h3>
+<ul>
+<li>💬 <strong>生活道地口語替換</strong>：列出母語人士生活常用俚語或片語。</li>
+<li>☕ <strong>情境生活短對話</strong>：2～3 輪日常對話，每句對話均附 <code>[ 🔊 聆聽美音 ]</code>。</li>
+</ul>
+<h3>7. 🖼️ 看圖說故事 (Picture Story，附語音)</h3>
+<ul>
+<li>插入一張精準符合單字情境的照片。</li>
+<li>撰寫 3～5 句生動的英文短文描述畫面，每句均附 <code>[ 🔊 聆聽句子美音 ]</code> 與繁體中譯。</li>
+</ul>
+<h3>8. 💡 學習叮嚀與易錯陷阱</h3>
+<ul>
+<li>常見中式英文錯誤、介系詞搭配陷阱或近義詞語境差別。</li>
+</ul>
+<h3>9. 📥 教材打包下載專區 (nab.html 嚴格黃金母板規範)</h3>
+<p>每次必須輸出完整的單一 HTML 原始碼區塊（使用 ```html 包覆）。<strong>排版與結構必須 100% 複製 nab.html 的骨架，僅抽換內容文字與屬性</strong>：</p>
+<h4>骨架與樣式強制約束 (Strict HTML Rules)</h4>
+<ol>
+<li><strong>外層架構</strong>：<ul>
+<li>必須為 <code>&lt;body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-16"&gt;</code>。</li>
+<li>頂部為獨立滿版 <code>&lt;header class="bg-gradient-to-r from-indigo-700 via-blue-600 to-sky-600 text-white py-8 px-6 shadow-md"&gt;</code>，內包 <code>&lt;div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4"&gt;</code>。<strong>嚴禁將 header 變成圓角卡片或包在全頁容器內</strong>。</li>
+<li>主體必須使用 <code>&lt;main class="max-w-4xl mx-auto px-4 mt-8 space-y-8"&gt;</code>。</li>
+<li>頁尾必須包含 <code>&lt;footer class="mt-12 text-center text-xs text-slate-400 no-print"&gt;</code>。</li>
+</ul>
+</li>
+<li><strong> 核心中繼標籤 (必備，對接 index.html)</strong>：<pre><code class="language-html">&lt;meta name="vocab-word" content="目標單字"&gt;
+&lt;meta name="vocab-cefr" content="CEFR等級"&gt;
+&lt;meta name="vocab-curriculum" content="課綱分類"&gt;
+&lt;meta name="vocab-pos" content="詞性"&gt;
+&lt;meta name="vocab-def" content="核心繁體中文釋義"&gt;
+</code></pre>
+</li>
+</ol>
+</body>
+</html>
