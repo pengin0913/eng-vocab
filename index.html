@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英文單字庫中樞面板 - Vocabulary Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入實體資料庫 (可隨身碟帶著走) -->
+  <script src="./vocab-db.js"></script>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 font-sans p-4 md:p-8">
+
+  <div class="max-w-6xl mx-auto space-y-6">
+    
+    <!-- 頂部中樞導覽列 -->
+    <header class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">📚</span>
+          <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">英文單字庫中樞面板</h1>
+          <span id="sync-badge" class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-bold border border-slate-300">
+            唯讀讀取模式
+          </span>
+        </div>
+        <p class="text-sm text-slate-500 mt-1">子目錄分類管理 • 精準 CEFR 階層檢視 • 智慧探針探索</p>
+      </div>
+
+      <!-- 右上角操作按鈕區 (雙軌整合) -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="btn-connect-dir" onclick="connectDirectory()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs md:text-sm font-bold px-3.5 py-2 rounded-xl shadow transition flex items-center gap-1.5">
+          📁 連結資料夾 (啟用原生自動同步)
+        </button>
+        <button id="btn-save-db" onclick="exportDatabaseFile()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs md:text-sm font-bold px-3.5 py-2 rounded-xl shadow transition flex items-center gap-1.5">
+          📥 儲存最新 vocab-db.js
+        </button>
+      </div>
+    </header>
+
+    <!-- 搜尋與探索控制列 -->
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4">
+      <div class="flex flex-col md:flex-row gap-3">
+        <div class="relative flex-1">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">🔍</span>
+          <input type="text" id="search-input" oninput="handleSearchInput()" placeholder="搜尋單字、中文釋義或詞性 (輸入後按 Enter 或點擊右側進行深度探測)..." 
+                 class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
+        </div>
+        <button id="btn-deep-probe" onclick="triggerDeepProbe()" class="bg-slate-800 hover:bg-slate-900 text-white text-sm font-bold px-5 py-3 rounded-xl transition flex items-center justify-center gap-1.5 shrink-0">
+          ⚡ 深度探測新單字檔
+        </button>
+      </div>
+
+      <!-- CEFR 分級篩選標籤 (Tabs) -->
+      <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
+        <span class="text-xs font-bold text-slate-400 mr-1">CEFR 篩選：</span>
+        <button onclick="filterCEFR('ALL')" class="cefr-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition" data-cefr="ALL">全部 (<span id="count-all">0</span>)</button>
+        <button onclick="filterCEFR('A1')" class="cefr-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition" data-cefr="A1">A1 (<span id="count-a1">0</span>)</button>
+        <button onclick="filterCEFR('A2')" class="cefr-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition" data-cefr="A2">A2 (<span id="count-a2">0</span>)</button>
+        <button onclick="filterCEFR('B1')" class="cefr-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition" data-cefr="B1">B1 (<span id="count-b1">0</span>)</button>
+        <button onclick="filterCEFR('B2')" class="cefr-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition" data-cefr="B2">B2 (<span id="count-b2">0</span>)</button>
+        <button onclick="filterCEFR('C1')" class="cefr-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition" data-cefr="C1">C1 (<span id="count-c1">0</span>)</button>
+        <button onclick="filterCEFR('C2')" class="cefr-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition" data-cefr="C2">C2 (<span id="count-c2">0</span>)</button>
+      </div>
+    </div>
+
+    <!-- 🚨 發現新檔案提示橫幅 (Discovery Toast Banner) -->
+    <div id="discovery-banner" class="hidden bg-gradient-to-r from-amber-500 to-orange-600 text-white p-5 rounded-2xl shadow-lg border border-amber-300 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-all">
+      <div class="flex items-start gap-3">
+        <span class="text-3xl">💡</span>
+        <div>
+          <h3 class="font-extrabold text-base md:text-lg flex items-center gap-2">
+            在目錄中偵測到未收錄單字：<span id="disc-word" class="underline underline-offset-4 font-black"></span>
+          </h3>
+          <p class="text-xs md:text-sm text-amber-100 mt-1">
+            正確路徑：<span id="disc-path" class="font-mono bg-black/20 px-2 py-0.5 rounded font-bold text-white"></span> ｜ 
+            精確級別：<span id="disc-cefr" class="font-bold bg-white text-orange-700 px-2 py-0.5 rounded text-xs shadow-sm"></span> ｜ 
+            釋義：<span id="disc-def" class="font-medium text-white"></span>
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button onclick="confirmAddToDatabase()" class="bg-white text-orange-700 hover:bg-orange-50 font-black text-xs md:text-sm px-4 py-2 rounded-xl shadow transition">
+          ➕ 立即加入索引資料庫
+        </button>
+        <button onclick="openDiscoveredFile()" class="bg-orange-800/80 hover:bg-orange-900 text-white font-bold text-xs md:text-sm px-3.5 py-2 rounded-xl transition">
+          ↗️ 直接開啟
+        </button>
+        <button onclick="closeDiscoveryBanner()" class="text-white/80 hover:text-white p-1 text-lg font-bold">✕</button>
+      </div>
+    </div>
+
+    <!-- 探測進度/狀態提示 (Probe Status) -->
+    <div id="probe-status" class="hidden text-xs font-bold text-slate-500 bg-slate-200/70 px-4 py-2 rounded-xl flex items-center gap-2">
+      <span class="animate-spin text-indigo-600">⏳</span>
+      <span id="probe-status-text">正深入探測各 CEFR 子目錄中...</span>
+    </div>
+
+    <!-- 單字卡片展示網格 (Grid View) -->
+    <div id="vocab-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- 動態由 JavaScript 渲染 -->
+    </div>
+
+    <!-- 查無結果空狀態 -->
+    <div id="empty-state" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200 p-8 space-y-3">
+      <span class="text-5xl">🔍</span>
+      <h3 class="text-lg font-bold text-slate-700">未找到符合條件的單字</h3>
+      <p class="text-xs text-slate-400 max-w-md mx-auto">若您已將新教材放入子目錄（例如 B2/nab.html），請點擊上方的「⚡ 深度探測新單字檔」。</p>
+    </div>
+
+  </div>
+
+  <!-- 用於靜默探測檔案的隱藏 iframe (加強驗證) -->
+  <iframe id="probe-frame" class="hidden"></iframe>
+
+  <script>
+    // 記憶體資料庫
+    let vocabList = window.VOCAB_DB || [];
+    let currentCEFR = 'ALL';
+    let dirHandle = null; 
+    let discoveredItem = null; 
+    let isProbing = false;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCounts();
+      renderCards();
+      
+      // 支援按 Enter 觸發深度探測
+      document.getElementById('search-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') triggerDeepProbe();
+      });
+    });
+
+    function updateCounts() {
+      const counts = { ALL: vocabList.length, A1: 0, A2: 0, B1: 0, B2: 0, C1: 0, C2: 0 };
+      vocabList.forEach(item => {
+        const c = (item.cefr || 'OTHER').toUpperCase();
+        if (counts[c] !== undefined) counts[c]++;
+      });
+      document.getElementById('count-all').textContent = counts.ALL;
+      document.getElementById('count-a1').textContent = counts.A1;
+      document.getElementById('count-a2').textContent = counts.A2;
+      document.getElementById('count-b1').textContent = counts.B1;
+      document.getElementById('count-b2').textContent = counts.B2;
+      document.getElementById('count-c1').textContent = counts.C1;
+      document.getElementById('count-c2').textContent = counts.C2;
+    }
+
+    function renderCards() {
+      const grid = document.getElementById('vocab-grid');
+      const empty = document.getElementById('empty-state');
+      const keyword = document.getElementById('search-input').value.trim().toLowerCase();
+
+      grid.innerHTML = '';
+
+      const filtered = vocabList.filter(item => {
+        const matchCEFR = (currentCEFR === 'ALL') || (item.cefr && item.cefr.toUpperCase() === currentCEFR);
+        const matchKeyword = !keyword || 
+          item.word.toLowerCase().includes(keyword) || 
+          (item.defZh && item.defZh.toLowerCase().includes(keyword)) ||
+          (item.pos && item.pos.toLowerCase().includes(keyword));
+        return matchCEFR && matchKeyword;
+      });
+
+      if (filtered.length === 0) {
+        empty.classList.remove('hidden');
+      } else {
+        empty.classList.add('hidden');
+        filtered.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded-2xl p-5 shadow-sm hover:shadow-md border border-slate-200 transition flex flex-col justify-between group';
+          card.innerHTML = `
+            <div>
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${getBadgeColor(item.cefr)}">
+                  CEFR ${item.cefr || 'N/A'}
+                </span>
+                <span class="text-[11px] text-slate-400 font-mono">${item.curriculum || ''}</span>
+              </div>
+              <h2 class="text-2xl font-black text-slate-900 mt-2 group-hover:text-indigo-600 transition tracking-tight">${item.word}</h2>
+              <p class="text-xs text-slate-400 italic">${item.pos || ''}</p>
+              <p class="text-sm text-slate-700 font-medium mt-2 line-clamp-2">${item.defZh || '（無中文釋義）'}</p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-slate-100 flex justify-between items-center">
+              <span class="text-[11px] font-mono text-slate-400 truncate max-w-[150px]">${item.path}</span>
+              <a href="./${item.path}" target="_blank" class="bg-slate-100 hover:bg-indigo-50 text-indigo-700 hover:text-indigo-900 text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1">
+                📖 開啟教材 ↗
+              </a>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+    }
+
+    function getBadgeColor(cefr) {
+      switch ((cefr || '').toUpperCase()) {
+        case 'A1': return 'bg-emerald-100 text-emerald-800';
+        case 'A2': return 'bg-teal-100 text-teal-800';
+        case 'B1': return 'bg-blue-100 text-blue-800';
+        case 'B2': return 'bg-indigo-100 text-indigo-800';
+        case 'C1': return 'bg-purple-100 text-purple-800';
+        case 'C2': return 'bg-rose-100 text-rose-800';
+        default: return 'bg-slate-100 text-slate-700';
+      }
+    }
+
+    function filterCEFR(level) {
+      currentCEFR = level;
+      document.querySelectorAll('.cefr-tab').forEach(btn => {
+        if (btn.dataset.cefr === level) {
+          btn.className = 'cefr-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition';
+        } else {
+          btn.className = 'cefr-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition';
+        }
+      });
+      renderCards();
+    }
+
+    function handleSearchInput() {
+      renderCards();
+    }
+
+    // 點擊深度探測
+    async function triggerDeepProbe() {
+      const kw = document.getElementById('search-input').value.trim().toLowerCase();
+      
+      // 模式 A：若已連結目錄 (方案2)，直接全面掃描目錄結構比對漏登錄檔案
+      if (dirHandle && !kw) {
+        await scanWholeDirectoryWithHandle();
+        return;
+      }
+
+      if (!kw) {
+        alert('請先在搜尋框輸入要探測的單字名稱（例如 nab 或 volcano）');
+        return;
+      }
+
+      // 檢查是否已在索引庫中
+      const existing = vocabList.find(v => v.word.toLowerCase() === kw);
+      if (existing) {
+        alert(`ℹ️ 單字「${kw}」已收錄於索引庫中，路徑為：${existing.path}`);
+        return;
+      }
+
+      await probeWordAcrossDirectories(kw);
+    }
+
+    // 核心探針：針對單一單字發動多層探測
+    async function probeWordAcrossDirectories(word) {
+      if (isProbing) return;
+      isProbing = true;
+
+      const statusEl = document.getElementById('probe-status');
+      const statusText = document.getElementById('probe-status-text');
+      statusEl.classList.remove('hidden');
+
+      // 候選路徑：優先探測各 CEFR 子目錄，最後探測根目錄
+      const candidatePaths = [
+        `A1/${word}.html`,
+        `A2/${word}.html`,
+        `B1/${word}.html`,
+        `B2/${word}.html`,
+        `C1/${word}.html`,
+        `C2/${word}.html`,
+        `${word}.html`
+      ];
+
+      let foundResult = null;
+
+      for (let path of candidatePaths) {
+        statusText.textContent = `正精確檢驗路徑：${path} ...`;
+        const result = await verifyFileExistenceAndParse(path, word);
+        if (result && result.isValid) {
+          foundResult = result;
+          break;
+        }
+      }
+
+      statusEl.classList.add('hidden');
+      isProbing = false;
+
+      if (foundResult) {
+        showDiscovery(word, foundResult.path, foundResult.cefr, foundResult.defZh, foundResult.pos, foundResult.curriculum);
+      } else {
+        alert(`❌ 深度探測完成：在 A1~C2 各子目錄及根目錄中，皆未找到「${word}.html」真實檔案。\n請確認該檔案是否已存放至對應資料夾。`);
+      }
+    }
+
+    // 核心防呆驗證：雙重特徵驗證 (排除 404 虛假觸發)
+    async function verifyFileExistenceAndParse(relPath, targetWord) {
+      // 策略 1：優先採用 fetch 取得原始碼文字 (在支援 HTTP/本機安全許可下最佳)
+      try {
+        const response = await fetch('./' + relPath + '?_t=' + Date.now());
+        if (response.ok) {
+          const htmlText = await response.text();
+          // 內容特徵指紋比對：確保不是伺服器/本機的 404 HTML
+          if (isRealVocabHtml(htmlText, targetWord)) {
+            return parseMetadataFromHtmlText(htmlText, relPath, targetWord);
+          }
+        }
+      } catch (e) {
+        // fetch 受限時，降級至策略 2 (加強型 iframe 特徵驗證)
+      }
+
+      // 策略 2：透過 iframe 深度指紋驗證
+      return await verifyViaIframe(relPath, targetWord);
+    }
+
+    // 檢驗 HTML 文字是否為真正的單字教案
+    function isRealVocabHtml(htmlText, targetWord) {
+      if (!htmlText || htmlText.length < 100) return false;
+      
+      const lower = htmlText.toLowerCase();
+      // 排除常見 404 / 找不到檔案特徵字串
+      if (lower.includes('404 not found') || lower.includes('cannot get') || lower.includes('err_file_not_found')) {
+        return false;
+      }
+
+      // 必須包含目標單字，或包含 eng-vocab 專屬標籤特徵
+      const hasWord = lower.includes(targetWord.toLowerCase());
+      const hasEngVocabMeta = lower.includes('vocab-') || lower.includes('eng-vocab') || lower.includes('speechsynthesis');
+      return hasWord && (hasEngVocabMeta || lower.includes('<title>'));
+    }
+
+    // 解析 HTML 字串中的中繼資料
+    function parseMetadataFromHtmlText(htmlText, relPath, targetWord) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlText, 'text/html');
+
+      const metaCefr = doc.querySelector('meta[name="vocab-cefr"]')?.content;
+      const metaDef = doc.querySelector('meta[name="vocab-def"]')?.content;
+      const metaPos = doc.querySelector('meta[name="vocab-pos"]')?.content;
+      const metaCurr = doc.querySelector('meta[name="vocab-curriculum"]')?.content;
+
+      // 嘗試從路徑抓取（如 B2/nab.html ➔ B2）
+      const folderCefr = relPath.includes('/') ? relPath.split('/')[0].toUpperCase() : 'B1';
+      const finalCefr = metaCefr || folderCefr;
+
+      // 嘗試從 H1、H2 或 Title 提煉釋義
+      let finalDef = metaDef;
+      if (!finalDef) {
+        const descMatch = htmlText.match(/核心釋義[^\w<]+([^\n<]+)/i);
+        finalDef = descMatch ? descMatch[1].trim() : '（已正確識別到教材檔案）';
+      }
+
+      return {
+        isValid: true,
+        path: relPath,
+        cefr: finalCefr,
+        defZh: finalDef,
+        pos: metaPos || '',
+        curriculum: metaCurr || ''
+      };
+    }
+
+    // 透過 iframe 安全檢驗 (加強特徵識別防禦)
+    function verifyViaIframe(relPath, targetWord) {
+      return new Promise((resolve) => {
+        const frame = document.getElementById('probe-frame');
+        let done = false;
+
+        const cleanup = () => {
+          frame.onload = null;
+          frame.onerror = null;
+        };
+
+        frame.onload = () => {
+          if (done) return;
+          done = true;
+          try {
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            const title = (doc.title || '').toLowerCase();
+            const bodyText = (doc.body ? doc.body.innerText : '').toLowerCase();
+
+            // 嚴格過濾 404 與錯誤頁面
+            if (title.includes('404') || title.includes('not found') || 
+                bodyText.includes('err_file_not_found') || bodyText.includes('cannot find file')) {
+              cleanup();
+              resolve({ isValid: false });
+              return;
+            }
+
+            // 必須具備目標單字特徵
+            if (!bodyText.includes(targetWord.toLowerCase()) && !title.includes(targetWord.toLowerCase())) {
+              cleanup();
+              resolve({ isValid: false });
+              return;
+            }
+
+            // 成功確認為真實檔案！提取資訊
+            const metaCefr = doc.querySelector('meta[name="vocab-cefr"]')?.content;
+            const metaDef = doc.querySelector('meta[name="vocab-def"]')?.content;
+            const metaPos = doc.querySelector('meta[name="vocab-pos"]')?.content;
+            const folderCefr = relPath.includes('/') ? relPath.split('/')[0].toUpperCase() : 'B1';
+
+            cleanup();
+            resolve({
+              isValid: true,
+              path: relPath,
+              cefr: metaCefr || folderCefr,
+              defZh: metaDef || '（已成功驗證真實教材檔案）',
+              pos: metaPos || '',
+              curriculum: ''
+            });
+          } catch (e) {
+            // 被安全機制阻擋 DOM 時，絕不輕易認定找到，判定無效
+            cleanup();
+            resolve({ isValid: false });
+          }
+        };
+
+        frame.onerror = () => {
+          if (done) return;
+          done = true;
+          cleanup();
+          resolve({ isValid: false });
+        };
+
+        frame.src = './' + relPath + '?_t=' + Date.now();
+
+        // 800ms 超時保護
+        setTimeout(() => {
+          if (!done) {
+            done = true;
+            cleanup();
+            resolve({ isValid: false });
+          }
+        }, 800);
+      });
+    }
+
+    // 顯示發現橫幅
+    function showDiscovery(word, path, cefr, defZh, pos, curriculum) {
+      discoveredItem = {
+        word: word,
+        cefr: (cefr || 'B1').toUpperCase(),
+        curriculum: curriculum || '',
+        pos: pos || '',
+        defZh: defZh || '',
+        path: path,
+        addedAt: new Date().toISOString().split('T')[0]
+      };
+
+      document.getElementById('disc-word').textContent = word;
+      document.getElementById('disc-path').textContent = path;
+      document.getElementById('disc-cefr').textContent = 'CEFR ' + discoveredItem.cefr;
+      document.getElementById('disc-def').textContent = defZh;
+      document.getElementById('discovery-banner').classList.remove('hidden');
+    }
+
+    function closeDiscoveryBanner() {
+      document.getElementById('discovery-banner').classList.add('hidden');
+      discoveredItem = null;
+    }
+
+    function openDiscoveredFile() {
+      if (discoveredItem) {
+        window.open('./' + discoveredItem.path, '_blank');
+      }
+    }
+
+    // 加入索引庫
+    async function confirmAddToDatabase() {
+      if (!discoveredItem) return;
+
+      const idx = vocabList.findIndex(v => v.word.toLowerCase() === discoveredItem.word.toLowerCase());
+      if (idx >= 0) {
+        // 更新現有路徑與級別
+        vocabList[idx] = discoveredItem;
+      } else {
+        vocabList.unshift(discoveredItem);
+      }
+
+      updateCounts();
+      renderCards();
+
+      if (dirHandle) {
+        await writeDatabaseWithFileSystem(dirHandle);
+        alert(`✅ 已將「${discoveredItem.word}」精確收編至 CEFR ${discoveredItem.cefr}，並自動寫入 vocab-db.js！`);
+      } else {
+        alert(`✅ 已將「${discoveredItem.word}」成功加入索引！\n正確路徑為：${discoveredItem.path}\n請記得點擊右上角「📥 儲存最新 vocab-db.js」更新隨身碟檔案。`);
+      }
+      closeDiscoveryBanner();
+    }
+
+    // 方案 2：連結資料夾並支援一鍵全目錄掃描
+    async function connectDirectory() {
+      if (!('showDirectoryPicker' in window)) {
+        alert('您的瀏覽器不支援原生目錄存取 API，建議使用 Chrome 或 Edge 瀏覽器。');
+        return;
+      }
+      try {
+        dirHandle = await window.showDirectoryPicker();
+        document.getElementById('sync-badge').textContent = '⚡ 原生自動同步中';
+        document.getElementById('sync-badge').className = 'text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold border border-emerald-300';
+        document.getElementById('btn-connect-dir').textContent = '✅ 已連結資料夾 (支援全目錄掃描)';
+        document.getElementById('btn-connect-dir').className = 'bg-emerald-700 text-white text-xs md:text-sm font-bold px-3.5 py-2 rounded-xl shadow-none';
+        
+        // 詢問是否直接進行全目錄自動比對
+        if (confirm('資料夾連結成功！是否立即「自動掃描整個目錄」，將所有未登錄的單字檔一次找出來？')) {
+          await scanWholeDirectoryWithHandle();
+        }
+      } catch (err) {
+        console.log('取消選取目錄');
+      }
+    }
+
+    // 透過 FileSystemHandle 遍歷所有子目錄
+    async function scanWholeDirectoryWithHandle() {
+      if (!dirHandle) return;
+      const cefrFolders = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+      let newFoundCount = 0;
+
+      for (let folder of cefrFolders) {
+        try {
+          const subDirHandle = await dirHandle.getDirectoryHandle(folder);
+          for await (const entry of subDirHandle.values()) {
+            if (entry.kind === 'file' && entry.name.endsWith('.html')) {
+              const word = entry.name.replace('.html', '');
+              // 檢查資料庫是否已收錄
+              if (!vocabList.some(v => v.word.toLowerCase() === word.toLowerCase())) {
+                const file = await entry.getFile();
+                const text = await file.text();
+                const parsed = parseMetadataFromHtmlText(text, `${folder}/${entry.name}`, word);
+                vocabList.unshift({
+                  word: word,
+                  cefr: folder,
+                  curriculum: parsed.curriculum || '',
+                  pos: parsed.pos || '',
+                  defZh: parsed.defZh || '',
+                  path: `${folder}/${entry.name}`,
+                  addedAt: new Date().toISOString().split('T')[0]
+                });
+                newFoundCount++;
+              }
+            }
+          }
+        } catch (e) {
+          // 資料夾可能尚未建立，直接跳過
+        }
+      }
+
+      if (newFoundCount > 0) {
+        updateCounts();
+        renderCards();
+        await writeDatabaseWithFileSystem(dirHandle);
+        alert(`🎉 掃描完成！共偵測並自動收錄了 ${newFoundCount} 筆新教材，已自動儲存至 vocab-db.js！`);
+      } else {
+        alert('👍 掃描完成：所有子目錄下的 HTML 教材均已在索引庫中，沒有遺漏的檔案！');
+      }
+    }
+
+    async function writeDatabaseWithFileSystem(handle) {
+      try {
+        const fileHandle = await handle.getFileHandle('vocab-db.js', { create: true });
+        const writable = await fileHandle.createWritable();
+        const content = generateDbFileContent();
+        await writable.write(content);
+        await writable.close();
+      } catch (err) {
+        console.error('自動寫入失敗:', err);
+      }
+    }
+
+    function exportDatabaseFile() {
+      const content = generateDbFileContent();
+      const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'vocab-db.js';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function generateDbFileContent() {
+      return `/**\n * vocab-db.js - 單字庫實體資料庫\n * 自動同步產生時間：${new Date().toLocaleString()}\n */\nwindow.VOCAB_DB = ${JSON.stringify(vocabList, null, 2)};\n`;
+    }
+  </script>
+</body>
+</html>

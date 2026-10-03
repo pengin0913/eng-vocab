@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>講義預覽</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <style>
+    body { font-family: "Microsoft JhengHei", Arial, sans-serif; line-height: 1.8; padding: 40px; max-width: 800px; margin: auto; }
+    table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background: #f5f5f5; }
+  </style>
+</head>
+<body><blockquote>
+<p>Prompt: 請列出eng-vocab的schema。</p>
+</blockquote>
+<p><code>eng-vocab</code> 的核心 Schema 規範包含兩大部分：<strong>「HTML <code>&lt;head&gt;</code> 專屬中繼資料結構（Metadata Schema）」</strong> 與 <strong>「資料庫實體物件結構（<code>vocab-db.js</code> Data Schema）」</strong>。</p>
+<hr>
+<h3>一、 HTML <code>&lt;head&gt;</code> 專屬中繼資料結構 (Document Metadata Schema)</h3>
+<p>所有由 <code>eng-vocab</code> 匯出的單檔 <code>.html</code> 檔案，必須在 <code>&lt;head&gt;</code> 標籤內強制注入以下 5 個 <code>&lt;meta&gt;</code> 標籤，提供入口網 <code>index.html</code> 進行非同步探針偵測與欄位抽取：</p>
+<pre><code class="language-html">&lt;!-- 格式：&lt;meta name="[屬性名稱]" content="[欄位值]"&gt; --&gt;
+&lt;meta name="vocab-word" content="[目標英文單字或片語]"&gt;
+&lt;meta name="vocab-cefr" content="[CEFR 級別代碼]"&gt;
+&lt;meta name="vocab-curriculum" content="[課綱與考試階段標籤]"&gt;
+&lt;meta name="vocab-pos" content="[主要詞性]"&gt;
+&lt;meta name="vocab-def" content="[核心繁體中文釋義]"&gt;
+</code></pre>
+<h4>欄位定義表 (Data Dictionary)</h4>
+<table>
+<thead>
+<tr>
+<th>屬性名稱 (<code>name</code>)</th>
+<th>資料型態</th>
+<th>必填</th>
+<th>允許值範例</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>vocab-word</code></strong></td>
+<td>String</td>
+<td>是</td>
+<td><code>nab</code>, <code>hesitate</code>, <code>volcano</code></td>
+<td>目標單字，全小寫字母為原則。</td>
+</tr>
+<tr>
+<td><strong><code>vocab-cefr</code></strong></td>
+<td>String (Enum)</td>
+<td>是</td>
+<td><code>A1</code>, <code>A2</code>, <code>B1</code>, <code>B2</code>, <code>C1</code>, <code>C2</code></td>
+<td>CEFR 國際語言標準分級代碼。</td>
+</tr>
+<tr>
+<td><strong><code>vocab-curriculum</code></strong></td>
+<td>String</td>
+<td>是</td>
+<td><code>國中會考核心字</code>, <code>高中升學 / 新聞高頻詞</code></td>
+<td>臺灣 108 課綱與升學考試階段標籤。</td>
+</tr>
+<tr>
+<td><strong><code>vocab-pos</code></strong></td>
+<td>String</td>
+<td>是</td>
+<td><code>verb</code>, <code>noun</code>, <code>adjective</code>, <code>verb / noun</code></td>
+<td>詞性，以英文縮寫或全稱呈現。</td>
+</tr>
+<tr>
+<td><strong><code>vocab-def</code></strong></td>
+<td>String</td>
+<td>是</td>
+<td><code>逮捕、逮獲；搶先拿下</code></td>
+<td>劍橋詞典在地繁體中文核心釋義。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>二、 實體資料庫物件結構 (<code>vocab-db.js</code> Data Schema)</h3>
+<p>由 <code>index.html</code> 探測收錄、或手動維護於 <code>vocab-db.js</code> 的全域資料結構，型態為 JavaScript 物件陣列（JSON-compatible Array）：</p>
+<h4>JSON Schema 定義</h4>
+<pre><code class="language-json">{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VocabItem",
+  "description": "eng-vocab 單字索引庫單一詞條規格",
+  "type": "object",
+  "properties": {
+    "word": {
+      "type": "string",
+      "description": "英文單字，對應檔案名稱（如 nab）"
+    },
+    "cefr": {
+      "type": "string",
+      "enum": ["A1", "A2", "B1", "B2", "C1", "C2"],
+      "description": "CEFR 級別"
+    },
+    "curriculum": {
+      "type": "string",
+      "description": "108 課綱階段標籤"
+    },
+    "pos": {
+      "type": "string",
+      "description": "詞性"
+    },
+    "defZh": {
+      "type": "string",
+      "description": "核心繁體中文釋義"
+    },
+    "path": {
+      "type": "string",
+      "description": "相對於 index.html 的存放路徑（例：B2/nab.html）"
+    },
+    "addedAt": {
+      "type": "string",
+      "format": "date",
+      "description": "加入索引庫的日期 (YYYY-MM-DD)"
+    }
+  },
+  "required": ["word", "cefr", "path", "defZh"]
+}
+</code></pre>
+<h4>實體資料範例 (<code>vocab-db.js</code>)</h4>
+<pre><code class="language-javascript">window.VOCAB_DB = [
+  {
+    "word": "nab",
+    "cefr": "B2",
+    "curriculum": "高中升學 / 新聞高頻詞",
+    "pos": "verb",
+    "defZh": "逮捕、逮獲；搶先拿下",
+    "path": "B2/nab.html",
+    "addedAt": "2026-10-03"
+  }
+];
+</code></pre>
+<hr>
+<h3>三、 Canvas 單檔教材應用程式 (Widget App Schema)</h3>
+<p>輸出的 <code>.html</code> 檔案內容除具備上述 Metadata 外，必須在 <code>&lt;body&gt;</code> 內包含以下 8 大 UI/功能區塊元件：</p>
+<ol>
+<li><strong>Header 區塊</strong>：單字、音標（KK + IPA）、CEFR/課綱標籤、美/英真人發音按鈕、下載 <code>.html</code> 與列印 A4 按鈕。</li>
+<li><strong>Flashcard 模組</strong>：可翻轉卡片（正面英文定義，反面中文與詞形變化）。</li>
+<li><strong>Syntax Analysis 模組</strong>：彩色底線剖析例句（藍實線主動詞、綠虛線狀語、橘點線核心搭配）＋ 句構圖例說明。</li>
+<li><strong>Picture Story 模組</strong>：情境照片、來源出處標註、逐句朗讀按鈕與中文翻譯。</li>
+<li><strong>Common Mistakes 模組</strong>：醒目警告色塊（拼寫地雷、語體層次、易混淆辨析）。</li>
+<li><strong>Mini Dialogue 模組</strong>：情境短對話與逐句語音。</li>
+<li><strong>Quick Quiz 模組</strong>：互動點擊自我檢測與即時解析。</li>
+<li><strong>Scripts 模組</strong>：內嵌 Web Speech API 語音引擎、卡片翻轉動畫與 Blob 下載腳本。</li>
+</ol>
+</body>
+</html>

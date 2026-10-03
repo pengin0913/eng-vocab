@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hesitate - 互動教案與學習工具</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 句構剖析彩色底線樣式 */
+    .syntax-subj-verb {
+      border-bottom: 2.5px solid #2563eb; /* 藍色實線：核心主詞與動詞 */
+      padding-bottom: 1px;
+    }
+    .syntax-prep-phrase {
+      border-bottom: 2px dashed #059669; /* 綠色虛線：介系詞片語/時間副詞修飾語 */
+      padding-bottom: 1px;
+    }
+    .syntax-focus-pattern {
+      border-bottom: 2.5px dotted #d97706; /* 橘黃色點線：目標焦點句型/搭配詞 */
+      padding-bottom: 1px;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; color: black; padding: 0; }
+      .print-box { border: 1px solid #cbd5e1; box-shadow: none; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen p-3 md:p-8 font-sans text-slate-800">
+  <div class="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-200 print-box">
+    
+    <!-- 頂部 Header 與下載按鈕 -->
+    <header class="bg-gradient-to-r from-indigo-700 via-blue-600 to-sky-600 text-white p-6">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-white/20 px-2.5 py-0.5 rounded-full font-semibold">CEFR B1</span>
+            <span class="text-xs bg-white/20 px-2.5 py-0.5 rounded-full font-semibold">國中進階 / 高中必備</span>
+          </div>
+          <h1 class="text-4xl font-black tracking-tight mt-2">hesitate</h1>
+          <p class="text-blue-100 text-sm mt-1">[ˈhez.ə.teɪt] • verb (hesitated, hesitated)</p>
+        </div>
+        <div class="flex flex-wrap gap-2 no-print">
+          <button onclick="speak('hesitate', 'en-US')" class="bg-white text-blue-800 hover:bg-blue-50 px-3 py-1.5 rounded-lg font-bold shadow text-xs flex items-center gap-1 transition">
+            🔊 美音朗讀
+          </button>
+          <button onclick="speak('hesitate', 'en-GB')" class="bg-blue-900 text-white hover:bg-black px-3 py-1.5 rounded-lg font-bold shadow text-xs flex items-center gap-1 transition">
+            🔊 英音
+          </button>
+          <button onclick="downloadLessonPlan()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 px-3 py-1.5 rounded-lg font-bold shadow text-xs flex items-center gap-1 transition">
+            📥 下載完整教案 (.html)
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="p-6 space-y-6">
+      
+      <!-- 模組一：單字翻轉記憶卡 -->
+      <section class="no-print">
+        <div id="flashcard" onclick="flipCard()" class="cursor-pointer bg-gradient-to-br from-blue-50 to-indigo-50 hover:bg-blue-100/70 border-2 border-dashed border-blue-300 rounded-xl p-5 text-center transition shadow-sm">
+          <div id="card-front">
+            <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">🔄 點擊卡片翻看繁中釋義與衍生族譜</span>
+            <h2 class="text-3xl font-black text-slate-800 my-2">hesitate</h2>
+            <p class="text-slate-600 text-sm">to pause before doing something because you are uncertain</p>
+          </div>
+          <div id="card-back" class="hidden">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">🎯 核心中文釋義與三態衍生</span>
+            <h3 class="text-xl font-bold text-slate-800 my-1">v. 猶豫、躊躇、遲疑</h3>
+            <p class="text-xs text-slate-600 mt-2">
+              名詞形：<b>hesitation</b> (猶豫) ｜ 形容詞形：<b>hesitant</b> (猶豫的)<br>
+              動詞三態：hesitate ➔ hesitated ➔ hesitated
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 模組二：權威情境例句 ＋ 彩色底線句構剖析 -->
+      <section class="space-y-3">
+        <div class="flex justify-between items-center">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <span>📚</span> 權威情境例句與句構深度剖析
+          </h3>
+          <span class="text-xs text-slate-500 hidden sm:inline">（點擊句末按鈕播放美音）</span>
+        </div>
+
+        <!-- 句構圖例說明 (Syntax Legend) -->
+        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span class="font-bold text-slate-700">🎨 句構圖例說明：</span>
+          <span class="flex items-center gap-1"><span class="syntax-subj-verb font-bold text-blue-700">藍色實線</span> 核心主詞/主要動詞</span>
+          <span class="flex items-center gap-1"><span class="syntax-prep-phrase font-bold text-emerald-700">綠色虛線</span> 時間/狀態介系詞修飾語</span>
+          <span class="flex items-center gap-1"><span class="syntax-focus-pattern font-bold text-amber-700">橘黃點線</span> 目標句型與不定詞受詞補語</span>
+        </div>
+
+        <div class="space-y-3">
+          <!-- 例句 1 -->
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <div class="flex justify-between items-start gap-2">
+              <p class="text-sm md:text-base leading-relaxed text-slate-800">
+                1. <span class="syntax-subj-verb">She hesitated</span> 
+                   <span class="syntax-prep-phrase">for a moment</span> 
+                   <span class="syntax-prep-phrase">before replying to the interviewer</span>.
+              </p>
+              <button onclick="speak('She hesitated for a moment before replying to the interviewer.', 'en-US')" class="no-print shrink-0 text-xs bg-blue-100 text-blue-800 hover:bg-blue-200 px-2 py-1 rounded font-semibold transition">
+                🔊 朗讀
+              </button>
+            </div>
+            <p class="text-xs text-slate-600">（她在回答面試官之前，略微<b>遲疑</b>了一下。）</p>
+            <div class="text-[11px] text-slate-500 bg-white p-2 rounded border border-slate-200 space-y-0.5">
+              <p>• <b>[She hesitated]</b>：主詞 (S) ＋ 不及物動詞 (Vi) 構成核心主句。</p>
+              <p>• <b>[for a moment]</b>：介系詞片語作時間副詞，修飾 hesitated 的持續時間（片刻）。</p>
+              <p>• <b>[before replying...]</b>：介系詞 before 引導之動名詞片語，表動作發生的先後順序。</p>
+            </div>
+          </div>
+
+          <!-- 例句 2 -->
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <div class="flex justify-between items-start gap-2">
+              <p class="text-sm md:text-base leading-relaxed text-slate-800">
+                2. <span class="syntax-prep-phrase">If you have any questions</span>, 
+                   <span class="syntax-subj-verb">please do not hesitate</span> 
+                   <span class="syntax-focus-pattern">to contact us</span>.
+              </p>
+              <button onclick="speak('If you have any questions, please do not hesitate to contact us.', 'en-US')" class="no-print shrink-0 text-xs bg-blue-100 text-blue-800 hover:bg-blue-200 px-2 py-1 rounded font-semibold transition">
+                🔊 朗讀
+              </button>
+            </div>
+            <p class="text-xs text-slate-600">（若您有任何疑問，請千萬不要<b>猶豫</b>，隨時與我們聯絡。）</p>
+            <div class="text-[11px] text-slate-500 bg-white p-2 rounded border border-slate-200 space-y-0.5">
+              <p>• <b>[If you have any questions]</b>：條件副詞子句，為主要句子的情境前提。</p>
+              <p>• <b>[please do not hesitate]</b>：否定祈使句作為主要子句，省略主詞 you。</p>
+              <p>• <b>[to contact us]</b>：不定詞片語 (to + V)，緊接在 hesitate 之後作動詞補語，構成商務英語極常用的禮貌句型。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 模組三：看圖說故事 (Picture Story，附圖片出處與逐句發音) -->
+      <section class="space-y-3">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <span>🖼️</span> 看圖說故事 (Picture Story)
+        </h3>
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+          
+          <div class="text-center">
+            <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcQ87uv6TXBbfYOUjWFAeQtaX_jcQPQ88JAKLh3fou4Li-4DB1Z66A8yn-g8WZKkc6uHftndJK8VnWjrqds" 
+                 alt="A thoughtful woman pausing with a hesitant expression during a conversation with a colleague" 
+                 class="mx-auto rounded-lg shadow-sm max-h-64 object-cover">
+            <p class="text-[11px] text-slate-400 mt-1">
+              📷 圖片來源出處：Getty Images (Royalty-Free Editorial Image)
+            </p>
+          </div>
+
+          <div class="space-y-2 text-sm text-slate-700">
+            <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200">
+              <p>1. During the office meeting, the woman listens intently to her colleague's suggestion.</p>
+              <button onclick="speak('During the office meeting, the woman listens intently to her colleague\'s suggestion.')" class="no-print text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-1 rounded">🔊</button>
+            </div>
+            <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200">
+              <p>2. She <b class="text-blue-700">hesitates</b> for a thoughtful moment before giving her honest feedback.</p>
+              <button onclick="speak('She hesitates for a thoughtful moment before giving her honest feedback.')" class="no-print text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-1 rounded">🔊</button>
+            </div>
+            <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200">
+              <p>3. Taking a brief pause allows her to carefully choose the right words.</p>
+              <button onclick="speak('Taking a brief pause allows her to carefully choose the right words.')" class="no-print text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-1 rounded">🔊</button>
+            </div>
+            <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200">
+              <p>4. Instead of rushing, her momentary <b class="text-blue-700">hesitation</b> helps prevent unnecessary misunderstandings.</p>
+              <button onclick="speak('Instead of rushing, her momentary hesitation helps prevent unnecessary misunderstandings.')" class="no-print text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-1 rounded">🔊</button>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 italic mt-1">
+            中文翻譯：在辦公室會議中，這位女士專注聆聽同事的提議。在給出中肯的回饋之前，她深思熟慮地遲疑了片刻。短暫的停頓讓她能夠謹慎地組織措辭。她的短暫猶豫非但沒有拖延，反而有助於避免不必要的誤解。
+          </p>
+        </div>
+      </section>
+
+      <!-- 模組四：⚠️ 誤區提醒 (Pitfalls & Common Mistakes) -->
+      <section class="p-5 bg-amber-50 rounded-xl border-l-4 border-amber-500 space-y-3">
+        <h3 class="text-base font-bold text-amber-950 flex items-center gap-1.5">
+          <span>⚠️</span> 教學焦點：學生常見誤區提醒 (Common Mistakes)
+        </h3>
+        <ul class="text-xs md:text-sm text-amber-900 space-y-2 leading-relaxed">
+          <li class="flex items-start gap-1.5">
+            <span class="font-bold text-amber-700">1.</span>
+            <div>
+              <b>動詞接續文法陷阱</b>：表示「猶豫/遲疑去做某事」時，後面固定接<b>不定詞 (to + V)</b>，不可接動名詞 (V-ing)。<br>
+              <span class="text-rose-700">❌ Don't hesitate contacting us.</span> ➔ 
+              <span class="text-emerald-800 font-semibold">✔️ Don't hesitate to contact us.</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="font-bold text-amber-700">2.</span>
+            <div>
+              <b>易混淆近義詞辨析</b>：
+              <br>• <b>hesitate</b>：強調當下因不確定或謹慎而產生的「短暫停頓、躊躇」。
+              <br>• <b>procrastinate</b>：指壞習慣式的「慣性拖延、拖到最後一刻才做」。
+              <br>• <b>waver</b>：指信念、立場或意志「搖擺動搖」。
+            </div>
+          </li>
+          <li class="flex items-start gap-1.5">
+            <span class="font-bold text-amber-700">3.</span>
+            <div>
+              <b>發音重音陷阱</b>：重音在第一音節 <b>[ˈhez.ə.teɪt]</b>，開頭字母 h 務必發音，不可像 hour 或 honest 那樣消音。
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 模組五：日常口語對話 -->
+      <section class="space-y-2">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <span>☕</span> 生活情境短對話 (Mini Dialogue)
+        </h3>
+        <div class="p-4 bg-sky-50/70 rounded-xl border border-sky-200 space-y-2 text-sm">
+          <div class="flex justify-between items-center">
+            <p><b>Alex:</b> Are you coming to the weekend hiking trip?</p>
+            <button onclick="speak('Are you coming to the weekend hiking trip?')" class="no-print text-xs bg-white text-slate-700 border border-slate-300 px-1.5 py-0.5 rounded">🔊</button>
+          </div>
+          <div class="flex justify-between items-center">
+            <p><b>Sam:</b> I'm still <b>dragging my feet</b> because the weather forecast looks bad.</p>
+            <button onclick="speak('I am still dragging my feet because the weather forecast looks bad.')" class="no-print text-xs bg-white text-slate-700 border border-slate-300 px-1.5 py-0.5 rounded">🔊</button>
+          </div>
+          <div class="flex justify-between items-center">
+            <p><b>Alex:</b> Don't <b>hesitate</b>! It will be a fun adventure anyway.</p>
+            <button onclick="speak('Don not hesitate! It will be a fun adventure anyway.')" class="no-print text-xs bg-white text-slate-700 border border-slate-300 px-1.5 py-0.5 rounded">🔊</button>
+          </div>
+          <div class="flex justify-between items-center">
+            <p><b>Sam:</b> Alright, count me in then!</p>
+            <button onclick="speak('Alright, count me in then!')" class="no-print text-xs bg-white text-slate-700 border border-slate-300 px-1.5 py-0.5 rounded">🔊</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 模組六：即時隨堂測驗 -->
+      <section class="p-5 bg-indigo-50 rounded-xl border border-indigo-200 no-print">
+        <h3 class="text-base font-bold text-indigo-950 mb-2 flex items-center gap-1.5">
+          <span>🧠</span> 隨堂即時檢測 (Quick Quiz)
+        </h3>
+        <p class="text-sm text-slate-800 mb-3">
+          Q: 請選出文法正確的句子填空：「若有任何問題，請儘管詢問老師。」<br>
+          <code class="text-xs bg-indigo-100 px-1 py-0.5 rounded text-indigo-900">"If you have questions, please do not hesitate ______."</code>
+        </p>
+        <div class="space-y-2">
+          <button onclick="checkQuiz(false, this)" class="quiz-btn w-full text-left p-2.5 bg-white border border-indigo-300 rounded-lg text-sm hover:bg-indigo-100 transition">
+            A. asking the teacher
+          </button>
+          <button onclick="checkQuiz(true, this)" class="quiz-btn w-full text-left p-2.5 bg-white border border-indigo-300 rounded-lg text-sm hover:bg-indigo-100 transition">
+            B. to ask the teacher
+          </button>
+          <button onclick="checkQuiz(false, this)" class="quiz-btn w-full text-left p-2.5 bg-white border border-indigo-300 rounded-lg text-sm hover:bg-indigo-100 transition">
+            C. ask the teacher
+          </button>
+        </div>
+        <p id="quiz-feedback" class="text-xs font-bold mt-2.5 hidden"></p>
+      </section>
+
+      <!-- 底部操作欄 -->
+      <div class="flex justify-between items-center pt-3 border-t border-slate-200 no-print">
+        <button onclick="downloadLessonPlan()" class="text-xs text-blue-600 hover:text-blue-800 font-bold flex items-center gap-1">
+          📥 點此儲存本教案 (.html)
+        </button>
+        <button onclick="window.print()" class="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold flex items-center gap-1 transition">
+          🖨️ A4 學習單列印
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function speak(text, lang = 'en-US') {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = lang;
+        u.rate = 0.9;
+        window.speechSynthesis.speak(u);
+      } else {
+        alert('您的瀏覽器不支援 Web Speech 語音合成。');
+      }
+    }
+
+    function flipCard() {
+      document.getElementById('card-front').classList.toggle('hidden');
+      document.getElementById('card-back').classList.toggle('hidden');
+    }
+
+    function checkQuiz(isCorrect, btn) {
+      const fb = document.getElementById('quiz-feedback');
+      fb.classList.remove('hidden');
+      document.querySelectorAll('.quiz-btn').forEach(b => {
+        b.classList.remove('bg-emerald-100', 'border-emerald-500', 'bg-rose-100', 'border-rose-400');
+      });
+
+      if (isCorrect) {
+        fb.textContent = '✅ 完全正確！hesitate 後方固定接不定詞「to + 原形動詞」，表示「遲疑/不情願去做某事」。';
+        fb.className = 'text-xs font-bold mt-2.5 text-emerald-700';
+        btn.classList.add('bg-emerald-100', 'border-emerald-500');
+      } else {
+        fb.textContent = '❌ 再想想看！hesitate 不能接動名詞 (-ing) 或原形動詞，必須搭配「to + 原形動詞」。';
+        fb.className = 'text-xs font-bold mt-2.5 text-rose-700';
+        btn.classList.add('bg-rose-100', 'border-rose-400');
+      }
+    }
+
+    function downloadLessonPlan() {
+      const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'hesitate_interactive_lesson_plan.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
