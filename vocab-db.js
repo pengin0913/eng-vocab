@@ -1,8 +1,17 @@
 /**
  * vocab-db.js - 單字庫實體資料庫
- * 自動同步產生時間：2026/10/4 上午12:10:35
+ * 自動同步產生時間：2026/10/4 上午12:23:59
  */
 window.VOCAB_DB = [
+  {
+    "word": "resilient",
+    "cefr": "B2",
+    "curriculum": "高中升學 7000 字",
+    "pos": "adjective",
+    "defZh": "有復原力的；適應力強的；堅韌不拔的",
+    "path": "B2/resilient.html",
+    "addedAt": "2026-10-03"
+  },
   {
     "word": "speaker",
     "cefr": "A2",
