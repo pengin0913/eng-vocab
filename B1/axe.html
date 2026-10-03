@@ -4,19 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>英語單字互動教案 - axe</title>
+
+  <!-- 專屬單字庫中樞面板中繼標籤 (提供 index.html 100% 精準自動探測與分類) -->
+  <meta name="vocab-word" content="axe">
+  <meta name="vocab-cefr" content="B1">
+  <meta name="vocab-curriculum" content="國小進階 / 國中會考核心字">
+  <meta name="vocab-pos" content="noun / verb">
+  <meta name="vocab-def" content="斧頭；大幅削減、撤銷">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* 彩色底線句構剖析樣式 */
     .syntax-subj-verb {
-      border-bottom: 2.5px solid #2563eb;
+      border-bottom: 2.5px solid #2563eb; /* 藍色實線：核心主詞與動詞 */
       padding-bottom: 1px;
     }
     .syntax-prep-phrase {
-      border-bottom: 2px dashed #059669;
+      border-bottom: 2px dashed #059669; /* 綠色虛線：介系詞片語 / 原因修飾語 */
       padding-bottom: 1px;
     }
     .syntax-focus-pattern {
-      border-bottom: 2.5px dotted #d97706;
+      border-bottom: 2.5px dotted #d97706; /* 橘黃點線：核心搭配與受詞片語 */
       padding-bottom: 1px;
       font-weight: 600;
     }
@@ -56,27 +64,28 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-16">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-16 font-sans">
 
   <!-- 頂部 Header -->
-  <header class="bg-gradient-to-r from-indigo-700 via-blue-600 to-sky-600 text-white py-8 px-6 shadow-md">
+  <header class="bg-gradient-to-r from-amber-700 via-orange-600 to-yellow-600 text-white py-8 px-6 shadow-md">
     <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <div>
         <div class="flex items-center gap-3 flex-wrap">
-          <h1 class="text-4xl font-extrabold tracking-tight">axe <span class="text-2xl text-blue-200 font-normal">/ ax</span></h1>
+          <h1 class="text-4xl font-extrabold tracking-tight">axe</h1>
           <span class="text-sm font-semibold bg-white/20 px-2.5 py-1 rounded-full uppercase tracking-wider">noun / verb</span>
-          <span class="text-xs font-bold bg-amber-400 text-amber-950 px-2.5 py-1 rounded-full">CEFR B1/B2</span>
-          <span class="text-xs font-bold bg-emerald-400 text-emerald-950 px-2.5 py-1 rounded-full">國中會考 / 新聞高頻詞</span>
+          <span class="text-xs font-bold bg-amber-300 text-amber-950 px-2.5 py-1 rounded-full">CEFR B1</span>
+          <span class="text-xs font-bold bg-emerald-400 text-emerald-950 px-2.5 py-1 rounded-full">國小進階 / 國中會考核心字</span>
         </div>
-        <div class="mt-3 flex items-center gap-4 text-sm text-blue-100 flex-wrap">
+        <div class="mt-3 flex items-center gap-4 text-sm text-amber-100 flex-wrap">
           <span>🇺🇸 KK: [æks] / IPA: /æks/</span>
           <span>🇬🇧 IPA: /æks/</span>
+          <span class="text-xs bg-black/20 px-2 py-0.5 rounded">美式亦常拼寫作: ax</span>
         </div>
         <div class="mt-3 flex items-center gap-2 no-print">
-          <button onclick="speak('axe', 'en-US')" class="bg-white/10 hover:bg-white/20 text-xs px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5">
+          <button onclick="speak('axe', 'en-US')" class="bg-white/10 hover:bg-white/20 text-xs px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5 font-medium">
             🔊 美音朗讀
           </button>
-          <button onclick="speak('axe', 'en-GB')" class="bg-white/10 hover:bg-white/20 text-xs px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5">
+          <button onclick="speak('axe', 'en-GB')" class="bg-white/10 hover:bg-white/20 text-xs px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1.5 font-medium">
             🔊 英音朗讀
           </button>
         </div>
@@ -106,19 +115,19 @@
       <div class="perspective w-full h-48 cursor-pointer select-none" onclick="flipCard()">
         <div id="flashcard-inner" class="relative w-full h-full transform-style-3d transition-transform duration-500">
           <!-- 正面 -->
-          <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-indigo-200 rounded-xl p-6 flex flex-col justify-center items-center text-center backface-hidden">
-            <span class="text-xs uppercase font-bold text-indigo-500 tracking-widest mb-1">English Definition</span>
-            <p class="text-base text-slate-700 font-medium">"A tool used for chopping wood; or (informal) to cut jobs, budget, or cancel a project."</p>
-            <p class="text-xs text-slate-400 mt-3 flex items-center gap-1">🔄 點擊翻轉查看中文釋義與名動用法</p>
+          <div class="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-6 flex flex-col justify-center items-center text-center backface-hidden">
+            <span class="text-xs uppercase font-bold text-amber-600 tracking-widest mb-1">English Definition</span>
+            <p class="text-base text-slate-700 font-medium">"A tool with a sharp heavy blade used for chopping wood; to reduce services or jobs drastically."</p>
+            <p class="text-xs text-slate-400 mt-3 flex items-center gap-1">🔄 點擊翻轉查看中文釋義與三態變化</p>
           </div>
           <!-- 反面 -->
-          <div class="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-6 flex flex-col justify-center items-center text-center backface-hidden rotate-y-180">
-            <span class="text-xs uppercase font-bold text-amber-600 tracking-widest mb-1">核心中文與衍生片語</span>
-            <p class="text-xl font-bold text-slate-800">斧頭 (n.)；裁撤、大砍預算 (v.)</p>
+          <div class="absolute inset-0 bg-gradient-to-br from-slate-50 to-amber-50 border-2 border-amber-300 rounded-xl p-6 flex flex-col justify-center items-center text-center backface-hidden rotate-y-180">
+            <span class="text-xs uppercase font-bold text-amber-700 tracking-widest mb-1">核心中文與詞性三態</span>
+            <p class="text-xl font-bold text-slate-800">斧頭 (n.) ｜ 大幅削減、裁撤 (v.)</p>
             <div class="flex gap-2 mt-2 text-xs text-slate-600 flex-wrap justify-center">
-              <span class="bg-white/80 px-2 py-0.5 rounded border border-amber-200">過去式: axed</span>
-              <span class="bg-white/80 px-2 py-0.5 rounded border border-amber-200">複數形: axes</span>
-              <span class="bg-white/80 px-2 py-0.5 rounded border border-amber-200">成語: have an axe to grind</span>
+              <span class="bg-white px-2 py-0.5 rounded border border-slate-200">過去式: axed</span>
+              <span class="bg-white px-2 py-0.5 rounded border border-slate-200">過去分詞: axed</span>
+              <span class="bg-white px-2 py-0.5 rounded border border-slate-200">現在分詞: axing</span>
             </div>
             <p class="text-xs text-slate-400 mt-2">🔄 點擊翻回正面</p>
           </div>
@@ -126,7 +135,7 @@
       </div>
     </section>
 
-    <!-- 模組 2: 權威例句 ＋ 彩色底線句構剖析 -->
+    <!-- 模組 2: 權威情境例句 ＋ 彩色底線句構剖析 -->
     <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -142,114 +151,110 @@
         </div>
         <div class="flex items-center gap-1.5">
           <span class="inline-block w-4 border-b-2 border-dashed border-emerald-600"></span>
-          <span>綠色虛線：分詞構句 / 介系詞片語</span>
+          <span>綠色虛線：介系詞片語 / 原因與手段修飾語</span>
         </div>
         <div class="flex items-center gap-1.5">
           <span class="inline-block w-4 border-b-2 border-dotted border-amber-600"></span>
-          <span>橘黃點線：目標核心字 / 焦點搭配詞</span>
+          <span>橘黃點線：目標核心字 / 受詞與搭配詞</span>
         </div>
       </div>
 
       <!-- 例句展示區 -->
       <div class="space-y-4">
+        <!-- 例句 1: 名詞用法 -->
         <div class="p-4 bg-slate-50/70 rounded-xl border border-slate-100">
           <div class="text-lg leading-loose text-slate-800">
-            <span class="syntax-prep-phrase">Facing a severe budget deficit</span>,
-            <span class="syntax-subj-verb">the tech company decided to <span class="syntax-focus-pattern">axe</span></span>
-            over two thousand jobs.
-            <button onclick="speak('Facing a severe budget deficit, the tech company decided to axe over two thousand jobs.', 'en-US')" class="ml-2 text-sm text-blue-600 hover:text-blue-800 no-print" title="朗讀美音">🔊</button>
+            <span class="syntax-subj-verb">The lumberjack used</span> 
+            <span class="syntax-focus-pattern">a heavy axe</span>
+            <span class="syntax-prep-phrase">to chop down the fallen trees</span>.
+            <button onclick="speak('The lumberjack used a heavy axe to chop down the fallen trees.', 'en-US')" class="ml-2 text-sm text-blue-600 hover:text-blue-800 no-print" title="朗讀美音">🔊</button>
           </div>
-          <p class="text-sm text-slate-500 mt-2">面對嚴重的預算赤字，該科技巨頭決定大幅裁撤超過兩千個工作職位。</p>
+          <p class="text-sm text-slate-500 mt-2">伐木工用一把沉重的斧頭砍伐倒下的樹木。</p>
           <div class="mt-3 text-xs text-slate-600 border-t border-slate-200 pt-2 space-y-1">
-            <p>• <strong>核心主幹</strong>：主詞 <code class="bg-blue-50 text-blue-700 px-1 rounded">the tech company</code> ＋ 動詞 <code class="bg-blue-50 text-blue-700 px-1 rounded">decided to axe</code> ＋ 受詞 <code class="bg-slate-100 px-1 rounded">over two thousand jobs</code>。</p>
-            <p>• <strong>前置修飾</strong>：現在分詞片語 <code class="bg-emerald-50 text-emerald-700 px-1 rounded">Facing a severe budget deficit</code> 作副詞狀語，說明裁員之背景原因。</p>
-            <p>• <strong>新聞動詞搭配</strong>：<code class="bg-amber-50 text-amber-700 px-1 rounded font-semibold">axe jobs</code> 意為「大幅度裁員」，為新聞英文極高頻的生動用字。</p>
+            <p>• <strong>核心主幹</strong>：主詞 <code class="bg-blue-50 text-blue-700 px-1 rounded">The lumberjack</code> ＋ 及物動詞 <code class="bg-blue-50 text-blue-700 px-1 rounded">used</code> ＋ 受詞名詞片語 <code class="bg-amber-50 text-amber-700 px-1 rounded">a heavy axe</code>。</p>
+            <p>• <strong>不定詞目的狀語</strong>：<code class="bg-emerald-50 text-emerald-700 px-1 rounded">to chop down...</code> 作為目的副詞修飾語，說明使用斧頭的目的。</p>
+          </div>
+        </div>
+
+        <!-- 例句 2: 動詞用法 (大砍/裁員) -->
+        <div class="p-4 bg-slate-50/70 rounded-xl border border-slate-100">
+          <div class="text-lg leading-loose text-slate-800">
+            <span class="syntax-subj-verb">The company announced</span> that it would 
+            <span class="syntax-focus-pattern">axe hundreds of jobs</span>
+            <span class="syntax-prep-phrase">due to the economic crisis</span>.
+            <button onclick="speak('The company announced that it would axe hundreds of jobs due to the economic crisis.', 'en-US')" class="ml-2 text-sm text-blue-600 hover:text-blue-800 no-print" title="朗讀美音">🔊</button>
+          </div>
+          <p class="text-sm text-slate-500 mt-2">由於經濟危機，該公司宣布將大舉裁撤數百個工作職位。</p>
+          <div class="mt-3 text-xs text-slate-600 border-t border-slate-200 pt-2 space-y-1">
+            <p>• <strong>賓語名詞子句</strong>：動詞 announced 後接 that 引導之名詞子句，其中 <code class="bg-amber-50 text-amber-700 px-1 rounded font-semibold">axe</code> 作為及物動詞，表示「大幅刪減／裁撤」。</p>
+            <p>• <strong>原因副詞片語</strong>：<code class="bg-emerald-50 text-emerald-700 px-1 rounded">due to the economic crisis</code> 清楚說明裁員的外部肇因。</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 模組 3: 看圖說故事 (含防破圖與自訂換圖/上傳面板) -->
+    <!-- 模組 3: 看圖說故事 (Picture Story) -->
     <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
           <span>🖼️</span> 看圖說故事 (Picture Story)
         </h2>
-        <button onclick="toggleImageSettings()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-300 transition no-print flex items-center gap-1">
-          ⚙️ 自訂圖片 / 換圖
-        </button>
+        <span class="text-xs text-slate-500">來源：Pixabay (Royalty-Free)</span>
       </div>
 
-      <!-- 自訂圖片面板 (預設隱藏) -->
-      <div id="image-edit-panel" class="hidden mb-4 p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-3 no-print">
-        <div class="font-bold text-slate-700">自訂教材圖片來源</div>
-        <div class="flex gap-2">
-          <input type="text" id="custom-image-url" placeholder="貼上自訂線上圖片 URL (https://...)" class="flex-1 px-3 py-1.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
-          <button onclick="applyNewImageUrl()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition font-medium">套用網址</button>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-slate-500">或上傳本機圖檔：</span>
-          <input type="file" id="local-image-input" accept="image/*" onchange="loadLocalImage(event)" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
-        </div>
-      </div>
-
-      <!-- 圖片容器與防破圖備援 -->
       <div class="relative w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-200 mb-5">
-        <img id="story-image" src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcRSNC1umCSfIR7rfOTqM1uKl1DvIacl-w-ZbEH4HskiI1ldJFaQOVNARAxaZ2x8s4yLQ82lUDNrNRdbQvE" alt="Woodcutter chopping firewood with an axe" class="w-full h-72 object-cover object-center transition" onerror="handleImageError(this)">
-        
-        <!-- 備用提示盒 (當圖片載入失敗時顯示) -->
+        <img id="story-image" src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=1200&q=80" alt="Steel axe in a wooden log" class="w-full h-72 object-cover object-center transition" onerror="handleImageError(this)">
         <div id="image-fallback-box" class="hidden w-full h-72 bg-slate-100 flex-col items-center justify-center text-slate-400 p-6 text-center">
           <span class="text-3xl mb-2">🪓</span>
-          <p class="text-sm font-medium text-slate-600">圖片暫時無法載入</p>
-          <p class="text-xs mt-1 text-slate-400">請點擊右上角「⚙️ 自訂圖片 / 換圖」按鈕輸入新圖片連結或上傳圖檔</p>
+          <p class="text-sm font-medium text-slate-600">斧頭劈柴情境示意圖</p>
         </div>
       </div>
 
-      <!-- 短文與語音 -->
+      <!-- 短文與逐句朗讀 -->
       <div class="space-y-3">
         <div class="p-3 bg-slate-50 rounded-lg flex items-start justify-between">
           <div>
-            <p class="text-sm font-medium text-slate-800">1. A woodcutter prepares firewood for the upcoming winter using a sharp iron axe.</p>
-            <p class="text-xs text-slate-500 mt-1">一名伐木工人使用鋒利的鐵斧，為即將到來的寒冬準備木柴。</p>
+            <p class="text-sm font-medium text-slate-800">1. A sharp steel <b class="text-amber-700">axe</b> sits firmly embedded in the top of a thick wooden log.</p>
+            <p class="text-xs text-slate-500 mt-1">一把鋒利的鋼斧牢牢嵌在厚厚的木樁頂端。</p>
           </div>
-          <button onclick="speak('A woodcutter prepares firewood for the upcoming winter using a sharp iron axe.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+          <button onclick="speak('A sharp steel axe sits firmly embedded in the top of a thick wooden log.', 'en-US')" class="text-slate-400 hover:text-amber-700 no-print ml-2">🔊</button>
         </div>
 
         <div class="p-3 bg-slate-50 rounded-lg flex items-start justify-between">
           <div>
-            <p class="text-sm font-medium text-slate-800">2. He firmly rests the wooden handle against the chopping block before splitting another log.</p>
-            <p class="text-xs text-slate-500 mt-1">在劈開另一段木頭前，他將木柄穩穩靠在木墩上。</p>
+            <p class="text-sm font-medium text-slate-800">2. Fresh wood chips and scattered leaves lie across the forest floor around the stump.</p>
+            <p class="text-xs text-slate-500 mt-1">新鮮的木屑與散落的落葉鋪滿了樹樁周圍的林地。</p>
           </div>
-          <button onclick="speak('He firmly rests the wooden handle against the chopping block before splitting another log.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+          <button onclick="speak('Fresh wood chips and scattered leaves lie across the forest floor around the stump.', 'en-US')" class="text-slate-400 hover:text-amber-700 no-print ml-2">🔊</button>
         </div>
 
         <div class="p-3 bg-slate-50 rounded-lg flex items-start justify-between">
           <div>
-            <p class="text-sm font-medium text-slate-800">3. Splitting logs requires not only physical strength, but also careful control and balance.</p>
-            <p class="text-xs text-slate-500 mt-1">劈柴不僅需要體力，更需要精確的掌控力與平衡感。</p>
+            <p class="text-sm font-medium text-slate-800">3. Preparing firewood before winter requires endurance, strength, and a well-balanced <b class="text-amber-700">axe</b>.</p>
+            <p class="text-xs text-slate-500 mt-1">在入冬前劈好柴火需要耐力、力量與一把配重良好的斧頭。</p>
           </div>
-          <button onclick="speak('Splitting logs requires not only physical strength, but also careful control and balance.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+          <button onclick="speak('Preparing firewood before winter requires endurance, strength, and a well-balanced axe.', 'en-US')" class="text-slate-400 hover:text-amber-700 no-print ml-2">🔊</button>
         </div>
 
         <div class="p-3 bg-slate-50 rounded-lg flex items-start justify-between">
           <div>
-            <p class="text-sm font-medium text-slate-800">4. By stacking the cut timber neatly, he ensures his cabin stays warm all season.</p>
-            <p class="text-xs text-slate-500 mt-1">藉由將劈好的木柴整齊堆疊，他確保了小木屋在整個冬季都能保持溫暖。</p>
+            <p class="text-sm font-medium text-slate-800">4. With precise strikes, the heavy blade splits the logs smoothly into practical kindling.</p>
+            <p class="text-xs text-slate-500 mt-1">在精準的揮劈下，沉重的斧刃將木頭乾脆俐落地劈成實用的引火木塊。</p>
           </div>
-          <button onclick="speak('By stacking the cut timber neatly, he ensures his cabin stays warm all season.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+          <button onclick="speak('With precise strikes, the heavy blade splits the logs smoothly into practical kindling.', 'en-US')" class="text-slate-400 hover:text-amber-700 no-print ml-2">🔊</button>
         </div>
       </div>
     </section>
 
-    <!-- 模組 4: 教學焦點：常見誤區提醒 (Common Mistakes) -->
+    <!-- 模組 4: ⚠️ 誤區提醒 (Pitfalls & Common Mistakes) -->
     <section class="bg-amber-50 rounded-2xl p-6 border-l-4 border-amber-500 shadow-sm">
-      <h2 class="text-lg font-bold text-amber-900 flex items-center gap-2 mb-3">
-        <span>💡</span> 教師備課提醒：常見混淆與學習陷阱
+      <h2 class="text-lg font-bold text-amber-950 flex items-center gap-2 mb-3">
+        <span>⚠️</span> 教學焦點：常見混淆與學習誤區提醒
       </h2>
-      <div class="text-sm text-amber-800 space-y-2">
-        <p>• <strong>拼法 axe vs. ax</strong>：英式習慣加 e（*axe*），美式常省略 e（*ax*），兩者皆正確，英檢與學測均不扣分。</p>
-        <p>• <strong>比喻用法 get the axe</strong>：日常生活若說某人 <em>got the axe</em>，是指其「被開除了（got sacked / fired）」，切勿誤會為人身攻擊字面意思。</p>
-        <p>• <strong>成語 have an axe to grind</strong>：千萬不可直譯為「磨斧頭」，其標準比喻意為「<strong>別有用心、自私自利的動機</strong>」或「心懷個人宿怨」。</p>
+      <div class="text-sm text-amber-900 space-y-2">
+        <p>• <strong>英美拼法相容性</strong>：英式習慣拼作 <strong>axe</strong>，美式則極常簡寫為 <strong>ax</strong>。兩者無論在名詞或動詞三態變化（<em>axed, axing</em>）時皆完全相通。</p>
+        <p>• <strong>新聞英語常考隱喻</strong>：在 BBC/CNN 標題中看到 <em>axe</em>，90% 不是在談伐木，而是指**「大砍預算」**或**「裁撤專案」**（例如：<em>Govt to axe 5,000 public sector jobs</em>）。</p>
+        <p>• <strong>常見片語陷阱</strong>：<em>have an axe to grind</em> 指「心懷私心、別有用心」，千萬別直譯為「有斧頭要磨」！</p>
       </div>
     </section>
 
@@ -259,31 +264,31 @@
         <span>☕</span> 生活情境短對話 (Mini Dialogue)
       </h2>
       <div class="space-y-3">
-        <div class="bg-blue-50/60 p-3.5 rounded-xl border border-blue-100 flex justify-between items-start">
+        <div class="bg-amber-50/60 p-3.5 rounded-xl border border-amber-100 flex justify-between items-start">
           <div>
-            <span class="text-xs font-bold text-blue-700">Ben</span>
-            <p class="text-sm text-slate-800 mt-0.5">"Did you hear about the company restructuring announced this morning?"</p>
-            <p class="text-xs text-slate-500 mt-1">（你聽說今天早上宣布的公司重組計畫了嗎？）</p>
+            <span class="text-xs font-bold text-amber-800">David</span>
+            <p class="text-sm text-slate-800 mt-0.5">"Did you hear the news about the design department?"</p>
+            <p class="text-xs text-slate-500 mt-1">（你聽說設計部門的新消息了嗎？）</p>
           </div>
-          <button onclick="speak('Did you hear about the company restructuring announced this morning?', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+          <button onclick="speak('Did you hear the news about the design department?', 'en-US')" class="text-slate-400 hover:text-amber-800 no-print ml-2">🔊</button>
         </div>
 
-        <div class="bg-emerald-50/60 p-3.5 rounded-xl border border-emerald-100 flex justify-between items-start">
+        <div class="bg-orange-50/60 p-3.5 rounded-xl border border-orange-100 flex justify-between items-start">
           <div>
-            <span class="text-xs font-bold text-emerald-700">Chloe</span>
-            <p class="text-sm text-slate-800 mt-0.5">"Yeah, rumors are spreading that several marketing projects might get the axe."</p>
-            <p class="text-xs text-slate-500 mt-1">（有啊，傳言說好幾個行銷專案可能會被直接腰斬。）</p>
+            <span class="text-xs font-bold text-orange-800">Emma</span>
+            <p class="text-sm text-slate-800 mt-0.5">"Yes, management decided to <b>axe</b> the entire new project because of budget cuts."</p>
+            <p class="text-xs text-slate-500 mt-1">（聽說了，管理階層因為預算縮減，決定撤銷整個新專案。）</p>
           </div>
-          <button onclick="speak('Yeah, rumors are spreading that several marketing projects might get the axe.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+          <button onclick="speak('Yes, management decided to axe the entire new project because of budget cuts.', 'en-US')" class="text-slate-400 hover:text-orange-800 no-print ml-2">🔊</button>
         </div>
 
-        <div class="bg-blue-50/60 p-3.5 rounded-xl border border-blue-100 flex justify-between items-start">
+        <div class="bg-amber-50/60 p-3.5 rounded-xl border border-amber-100 flex justify-between items-start">
           <div>
-            <span class="text-xs font-bold text-blue-700">Ben</span>
-            <p class="text-sm text-slate-800 mt-0.5">"I really hope our department doesn't get axed; we've been working overtime all month."</p>
-            <p class="text-xs text-slate-500 mt-1">（我真希望我們部門不要被裁掉，我們整個月都在加班。）</p>
+            <span class="text-xs font-bold text-amber-800">David</span>
+            <p class="text-sm text-slate-800 mt-0.5">"That’s terrible! I hope no one <b>gets the axe</b> as a result."</p>
+            <p class="text-xs text-slate-500 mt-1">（那太糟糕了！希望沒有人因此遭到解僱裁員。）</p>
           </div>
-          <button onclick="speak('I really hope our department doesn\'t get axed; we\'ve been working overtime all month.', 'en-US')" class="text-slate-400 hover:text-blue-600 no-print ml-2">🔊</button>
+          <button onclick="speak('That is terrible! I hope no one gets the axe as a result.', 'en-US')" class="text-slate-400 hover:text-amber-800 no-print ml-2">🔊</button>
         </div>
       </div>
     </section>
@@ -294,20 +299,20 @@
         <span>📝</span> 課堂隨堂檢測 (Quick Quiz)
       </h2>
       <p class="text-sm text-slate-700 mb-4">
-        <strong>Q:</strong> In the sentence "The council plans to <strong>axe</strong> public library funding," what does the word <strong>axe</strong> mean?
+        <strong>Q:</strong> 在商業與職場英語中，片語 "get the axe" 最貼切的意思為何？
       </p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="quiz-options">
         <button onclick="checkQuiz(false, this)" class="quiz-btn text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm transition">
-          A) To double or expand substantially
+          A) 獲得一把昂貴的工具
         </button>
         <button onclick="checkQuiz(true, this)" class="quiz-btn text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm transition">
-          B) To cancel or drastically reduce
+          B) 遭到公司解僱或開除
         </button>
         <button onclick="checkQuiz(false, this)" class="quiz-btn text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm transition">
-          C) To construct using wooden materials
+          C) 被指派前往戶外砍伐木材
         </button>
         <button onclick="checkQuiz(false, this)" class="quiz-btn text-left p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-sm transition">
-          D) To investigate suspected illegal acts
+          D) 順利取得升遷的機會
         </button>
       </div>
       <div id="quiz-feedback" class="mt-4 hidden p-3 rounded-xl text-xs"></div>
@@ -317,12 +322,11 @@
 
   <!-- 頁尾 -->
   <footer class="mt-12 text-center text-xs text-slate-400 no-print">
-    <p>English Vocabulary Lesson Plan • axe / ax • Generated for Classroom Instruction</p>
+    <p>English Vocabulary Lesson Plan • axe • Generated for Classroom Instruction</p>
   </footer>
 
-  <!-- 互動 JavaScript 核心腳本 -->
+  <!-- 核心互動腳本 -->
   <script>
-    // 1. Web Speech API 朗讀功能
     function speak(text, lang = 'en-US') {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -335,7 +339,6 @@
       }
     }
 
-    // 2. 翻轉單字卡
     let isFlipped = false;
     function flipCard() {
       const card = document.getElementById('flashcard-inner');
@@ -347,7 +350,6 @@
       }
     }
 
-    // 3. 隨堂測驗判定
     function checkQuiz(isCorrect, btn) {
       const allBtns = document.querySelectorAll('.quiz-btn');
       allBtns.forEach(b => {
@@ -361,79 +363,27 @@
       if (isCorrect) {
         btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'font-bold');
         feedback.className = 'mt-4 p-3 rounded-xl text-xs bg-emerald-50 border border-emerald-200 text-emerald-800';
-        feedback.innerHTML = '<strong>🎉 答對了！</strong> 動詞 <strong>axe</strong> 在新聞或口語中常指「大幅削減（開支）或取消（專案/職位）」，相當於 cancel 或 drastically reduce。';
+        feedback.innerHTML = '<strong>🎉 答對了！</strong> "get the axe" 在口語中即指「被解僱、遭開除」；反之，"give someone the axe" 則是「開除某人」。';
       } else {
         btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900');
         feedback.className = 'mt-4 p-3 rounded-xl text-xs bg-rose-50 border border-rose-200 text-rose-800';
-        feedback.innerHTML = '<strong>❌ 答錯囉！</strong> 正確答案為 <strong>B</strong>。在此語境中，axe funding 代表「腰斬、取消補助經費」，非字面劈砍木頭之意。';
+        feedback.innerHTML = '<strong>❌ 答錯囉！</strong> 正確答案為 <strong>B</strong>。"axe" 在職場比喻中常用作裁員砍人，因此 "get the axe" 意為「被炒魷魚」。';
       }
     }
 
-    // 4. 圖片設置面板切換
-    function toggleImageSettings() {
-      const panel = document.getElementById('image-edit-panel');
-      panel.classList.toggle('hidden');
-    }
-
-    // 5. 防破圖備援處理
     function handleImageError(img) {
       img.classList.add('hidden');
-      const fallbackBox = document.getElementById('image-fallback-box');
-      if (fallbackBox) {
-        fallbackBox.classList.remove('hidden');
-        fallbackBox.classList.add('flex');
-      }
+      const fallback = document.getElementById('image-fallback-box');
+      if (fallback) fallback.classList.remove('hidden');
     }
 
-    // 6. 套用線上新圖片網址
-    function applyNewImageUrl() {
-      const input = document.getElementById('custom-image-url');
-      const url = input.value.trim();
-      if (url) {
-        const img = document.getElementById('story-image');
-        const fallbackBox = document.getElementById('image-fallback-box');
-        img.src = url;
-        img.classList.remove('hidden');
-        if (fallbackBox) {
-          fallbackBox.classList.add('hidden');
-          fallbackBox.classList.remove('flex');
-        }
-      }
-    }
-
-    // 7. 本機上傳圖檔轉 Base64 寫入 DOM
-    function loadLocalImage(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const img = document.getElementById('story-image');
-          const fallbackBox = document.getElementById('image-fallback-box');
-          img.src = e.target.result;
-          img.classList.remove('hidden');
-          if (fallbackBox) {
-            fallbackBox.classList.add('hidden');
-            fallbackBox.classList.remove('flex');
-          }
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    // 8. 下載完整 HTML 教案
     function downloadLessonPlan() {
-      const docClone = document.documentElement.cloneNode(true);
-      
-      // 確保下載時隱藏換圖設定面板
-      const panel = docClone.querySelector('#image-edit-panel');
-      if (panel) panel.classList.add('hidden');
-
-      const htmlContent = "<!DOCTYPE html>\n" + docClone.outerHTML;
+      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
       const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'axe_lesson_plan.html';
+      a.download = 'axe.html';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
