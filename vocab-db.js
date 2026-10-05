@@ -1,8 +1,17 @@
 /**
  * vocab-db.js - 單字庫實體資料庫
- * 自動同步產生時間：2026/10/4 上午12:41:50
+ * 自動同步產生時間：2026/10/5 上午10:25:30
  */
 window.VOCAB_DB = [
+  {
+    "word": "attainment",
+    "cefr": "C1",
+    "curriculum": "高中升學 7000 字",
+    "pos": "noun",
+    "defZh": "達到、達成；學識、造詣",
+    "path": "C1/attainment.html",
+    "addedAt": "2026-10-05"
+  },
   {
     "word": "breakfast",
     "cefr": "A1",

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>單字互動學習教材 - attainment</title>
+  
+  <!-- 核心中繼標籤 (供目錄 index.html 探測對接) -->
+  <meta name="vocab-word" content="attainment">
+  <meta name="vocab-cefr" content="C1">
+  <meta name="vocab-curriculum" content="高中升學 7000 字">
+  <meta name="vocab-pos" content="noun">
+  <meta name="vocab-def" content="達到、達成；學識、造詣">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background-color: white !important; }
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .perspective {
+      perspective: 1000px;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .syntax-subject {
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 1px;
+    }
+    .syntax-verb {
+      border-bottom: 3px solid #16a34a;
+      padding-bottom: 1px;
+    }
+    .syntax-object {
+      border-bottom: 3px dashed #d97706;
+      padding-bottom: 1px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-16">
+
+  <!-- 滿版頂部 Header -->
+  <header class="bg-gradient-to-r from-indigo-700 via-blue-600 to-sky-600 text-white py-8 px-6 shadow-md">
+    <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="bg-white/20 px-2.5 py-1 rounded-full uppercase tracking-wider text-xs font-semibold">noun</span>
+          <span class="bg-amber-400 text-amber-950 px-2.5 py-1 rounded-full font-bold text-xs">CEFR C1</span>
+          <span class="bg-emerald-400 text-emerald-950 px-2.5 py-1 rounded-full font-bold text-xs">高中升學 7000 字</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">attainment</h1>
+        <p class="text-blue-100 text-sm mt-1">KK [əˈtenmənt] ｜ IPA /əˈteɪn.mənt/</p>
+      </div>
+      <div class="flex items-center gap-3 no-print">
+        <button onclick="downloadLessonPlan()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm px-4 py-2 rounded-lg shadow transition flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          下載教材
+        </button>
+        <button onclick="window.print()" class="bg-white/20 hover:bg-white/30 text-white font-medium text-sm px-4 py-2 rounded-lg transition flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          列印 A4
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容容器 -->
+  <main class="max-w-4xl mx-auto px-4 mt-8 space-y-8">
+    
+    <!-- 模組 1: 3D 翻轉單字卡 -->
+    <section class="perspective">
+      <div id="flashcard" onclick="flipCard()" class="w-full h-48 relative transform-style-3d transition-transform duration-500 cursor-pointer shadow-sm rounded-xl">
+        <!-- 卡片正面 -->
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-indigo-200 rounded-xl p-6 flex flex-col justify-center items-center text-center backface-hidden">
+          <div class="text-xs font-semibold text-indigo-500 uppercase tracking-wider mb-1">Click to Flip 點擊翻轉</div>
+          <div class="text-3xl font-black text-indigo-900 mb-2">attainment</div>
+          <div class="text-slate-600 text-sm">/əˈteɪn.mənt/</div>
+          <button onclick="event.stopPropagation(); speak('attainment')" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded-full text-xs flex items-center gap-1.5 shadow-sm transition">
+            🔊 發音
+          </button>
+        </div>
+        <!-- 卡片反面 -->
+        <div class="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-6 flex flex-col justify-center items-center text-center backface-hidden rotate-y-180">
+          <div class="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-1">釋義與搭配</div>
+          <div class="text-2xl font-bold text-amber-900 mb-2">達成、獲得；學識造詣</div>
+          <div class="flex flex-wrap gap-2 justify-center text-xs text-amber-800">
+            <span class="bg-white/80 px-2 py-0.5 rounded border border-amber-200">educational attainment</span>
+            <span class="bg-white/80 px-2 py-0.5 rounded border border-amber-200">attainment of a goal</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 2: 劍橋釋義與句構深度剖析 -->
+    <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-5">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+          劍橋權威釋義與句構剖析
+        </h2>
+        <span class="text-xs text-slate-500">Cambridge English Dictionary</span>
+      </div>
+
+      <p class="text-slate-700 font-medium leading-relaxed">
+        <span class="font-bold text-indigo-700">[U]</span> The act of achieving something. 
+        <span class="text-slate-500 font-normal">（達成、實現目標的行為）</span>
+      </p>
+
+      <!-- 句構剖析 -->
+      <div class="p-4 bg-slate-50 rounded-lg border border-slate-200/80 space-y-3">
+        <div class="flex justify-between items-center text-xs text-slate-500 font-medium">
+          <span>句子結構色彩標註</span>
+          <div class="flex items-center gap-3">
+            <span class="flex items-center gap-1"><span class="inline-block w-4 h-1 bg-blue-600"></span> 主詞</span>
+            <span class="flex items-center gap-1"><span class="inline-block w-4 h-1 bg-emerald-600"></span> 動詞</span>
+            <span class="flex items-center gap-1"><span class="inline-block w-4 h-1 border-b-2 border-dashed border-amber-600"></span> 受詞/受詞補語</span>
+          </div>
+        </div>
+
+        <div class="text-base text-slate-800 leading-loose pt-1">
+          <span class="syntax-subject font-medium">Her relentless dedication</span> 
+          <span class="syntax-verb font-medium">accelerated</span> 
+          <span class="syntax-object font-medium">the attainment of her medical license</span>.
+          <button onclick="speak('Her relentless dedication accelerated the attainment of her medical license.')" class="ml-2 text-indigo-600 hover:text-indigo-800 inline-block align-middle">🔊</button>
+        </div>
+
+        <p class="text-xs text-slate-500">
+          結構解析：主詞為 <code class="bg-blue-50 text-blue-700 px-1 rounded">Her relentless dedication</code>，及物動詞為 <code class="bg-emerald-50 text-emerald-700 px-1 rounded">accelerated</code>，核心受詞為含有目標字的片語 <code class="bg-amber-50 text-amber-700 px-1 rounded font-semibold">the attainment of...</code>。
+        </p>
+      </div>
+    </section>
+
+    <!-- 模組 3: 看圖說故事 (含防破圖與自訂換圖) -->
+    <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+          看圖說故事 (Picture Story)
+        </h2>
+        <button onclick="toggleImageSettings()" class="no-print text-xs text-slate-500 hover:text-indigo-600 transition flex items-center gap-1">
+          ⚙ 自訂圖片 / 換圖
+        </button>
+      </div>
+
+      <!-- 自訂圖片面板 (預設隱藏) -->
+      <div id="image-edit-panel" class="hidden p-4 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-3 no-print">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">貼上圖片網址 (Image URL)：</label>
+          <div class="flex gap-2">
+            <input type="text" id="custom-image-url" placeholder="https://example.com/image.jpg" class="flex-1 px-3 py-1.5 border border-slate-300 rounded focus:outline-none focus:ring-1 focus:ring-indigo-500 text-xs">
+            <button onclick="applyNewImageUrl()" class="bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700">套用網址</button>
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">或從電腦上傳圖檔：</label>
+          <input type="file" accept="image/*" onchange="loadLocalImage(event)" class="text-slate-500 text-xs">
+        </div>
+      </div>
+
+      <!-- 圖片容器與防破圖備援 -->
+      <div class="relative rounded-lg overflow-hidden bg-slate-100 max-h-80 flex items-center justify-center border border-slate-200">
+        <img id="story-image" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80" alt="Graduation attainment" onerror="handleImageError(this)" class="w-full h-full object-cover max-h-80">
+        <div id="image-fallback-box" class="hidden py-16 text-center text-slate-400">
+          <svg class="w-12 h-12 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <p class="text-xs">圖片載入失敗，可點選上方「自訂圖片」更換來源</p>
+        </div>
+      </div>
+
+      <!-- 短文朗讀 -->
+      <div class="space-y-3 pt-2">
+        <div class="p-3 rounded-lg hover:bg-slate-50 transition border border-transparent hover:border-slate-200 flex items-start justify-between">
+          <div>
+            <p class="text-slate-800 text-sm font-medium">1. The graduate stood proudly in the hall, holding her newly awarded diploma.</p>
+            <p class="text-slate-500 text-xs mt-0.5">畢業生驕傲地站在大廳裡，手持剛獲得的文憑。</p>
+          </div>
+          <button onclick="speak('The graduate stood proudly in the hall, holding her newly awarded diploma.')" class="text-indigo-600 hover:text-indigo-800 text-sm ml-2">🔊</button>
+        </div>
+        <div class="p-3 rounded-lg hover:bg-slate-50 transition border border-transparent hover:border-slate-200 flex items-start justify-between">
+          <div>
+            <p class="text-slate-800 text-sm font-medium">2. For her, this diploma represented the <strong class="text-indigo-600">attainment</strong> of a lifelong goal.</p>
+            <p class="text-slate-500 text-xs mt-0.5">對她而言，這張文憑代表了一項終身目標的達成。</p>
+          </div>
+          <button onclick="speak('For her, this diploma represented the attainment of a lifelong goal.')" class="text-indigo-600 hover:text-indigo-800 text-sm ml-2">🔊</button>
+        </div>
+        <div class="p-3 rounded-lg hover:bg-slate-50 transition border border-transparent hover:border-slate-200 flex items-start justify-between">
+          <div>
+            <p class="text-slate-800 text-sm font-medium">3. Her family applauded warmly to honor her outstanding academic achievements.</p>
+            <p class="text-slate-500 text-xs mt-0.5">家人熱烈鼓掌，向她卓越的學術成就致敬。</p>
+          </div>
+          <button onclick="speak('Her family applauded warmly to honor her outstanding academic achievements.')" class="text-indigo-600 hover:text-indigo-800 text-sm ml-2">🔊</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模組 4: 隨堂即時檢測 (Quick Quiz) -->
+    <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+          隨堂即時測驗 (Quick Quiz)
+        </h2>
+        <span class="text-xs text-slate-500">單選題</span>
+      </div>
+
+      <p class="text-slate-800 text-sm font-medium">
+        Q: The government’s priority is to raise the educational ________ of children from disadvantaged backgrounds.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <button onclick="checkQuiz(this, false)" class="quiz-btn p-3 border border-slate-200 rounded-lg text-left text-sm hover:bg-slate-50 transition flex items-center justify-between">
+          <span>A. attendance</span>
+          <span class="result-icon"></span>
+        </button>
+        <button onclick="checkQuiz(this, true)" class="quiz-btn p-3 border border-slate-200 rounded-lg text-left text-sm hover:bg-slate-50 transition flex items-center justify-between">
+          <span>B. attainment</span>
+          <span class="result-icon"></span>
+        </button>
+        <button onclick="checkQuiz(this, false)" class="quiz-btn p-3 border border-slate-200 rounded-lg text-left text-sm hover:bg-slate-50 transition flex items-center justify-between">
+          <span>C. attachment</span>
+          <span class="result-icon"></span>
+        </button>
+        <button onclick="checkQuiz(this, false)" class="quiz-btn p-3 border border-slate-200 rounded-lg text-left text-sm hover:bg-slate-50 transition flex items-center justify-between">
+          <span>D. attraction</span>
+          <span class="result-icon"></span>
+        </button>
+      </div>
+
+      <div id="quiz-explanation" class="hidden p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-800">
+        🎉 <strong>答對了！</strong> 「educational attainment」為極常用的固定搭配詞，意指「教育程度／學業成就」。
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="mt-12 text-center text-xs text-slate-400 no-print">
+    Generated by English Vocabulary Expert &bull; Cambridge Dictionary Aligned
+  </footer>
+
+  <!-- 互動腳本 -->
+  <script>
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('您的瀏覽器不支援語音合成朗讀功能。');
+      }
+    }
+
+    function flipCard() {
+      const card = document.getElementById('flashcard');
+      card.classList.toggle('rotate-y-180');
+    }
+
+    function checkQuiz(button, isCorrect) {
+      const buttons = document.querySelectorAll('.quiz-btn');
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        btn.classList.add('cursor-not-allowed', 'opacity-80');
+      });
+
+      const icon = button.querySelector('.result-icon');
+      if (isCorrect) {
+        button.classList.remove('border-slate-200', 'hover:bg-slate-50');
+        button.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-800', 'font-semibold');
+        icon.innerHTML = '✅';
+        document.getElementById('quiz-explanation').classList.remove('hidden');
+      } else {
+        button.classList.remove('border-slate-200', 'hover:bg-slate-50');
+        button.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-800');
+        icon.innerHTML = '❌';
+        buttons.forEach(btn => {
+          if (btn.innerText.includes('attainment')) {
+            btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-800', 'font-semibold');
+            btn.querySelector('.result-icon').innerHTML = '👈 正確答案';
+          }
+        });
+        document.getElementById('quiz-explanation').classList.remove('hidden');
+      }
+    }
+
+    function toggleImageSettings() {
+      const panel = document.getElementById('image-edit-panel');
+      panel.classList.toggle('hidden');
+    }
+
+    function handleImageError(img) {
+      img.style.display = 'none';
+      document.getElementById('image-fallback-box').classList.remove('hidden');
+    }
+
+    function applyNewImageUrl() {
+      const url = document.getElementById('custom-image-url').value.trim();
+      if (!url) return;
+      const img = document.getElementById('story-image');
+      img.style.display = 'block';
+      document.getElementById('image-fallback-box').classList.add('hidden');
+      img.src = url;
+    }
+
+    function loadLocalImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById('story-image');
+          img.style.display = 'block';
+          document.getElementById('image-fallback-box').classList.add('hidden');
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function downloadLessonPlan() {
+      const editPanel = document.getElementById('image-edit-panel');
+      if (editPanel) editPanel.classList.add('hidden');
+      const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'attainment.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
